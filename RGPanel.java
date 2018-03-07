@@ -12,7 +12,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*; 
 
-public  class RGPanel extends JPanel{
+public class RGPanel extends JPanel{
   
   /**
    * constructor
@@ -35,24 +35,24 @@ public  class RGPanel extends JPanel{
     
     Graphics2D g2 = (Graphics2D)g;
     
-    RGCar car=new RGCar(250,250);
+    RGCar car=new RGCar();
     car.draw(g2);
       
       
     }
   
   public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				JFrame frame = new JFrame();
-				frame.add(new RGPanel(700,700));
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.pack();
-				frame.setLocationRelativeTo(null);
-				frame.setVisible(true);
-			}
-		});
-	}
+  SwingUtilities.invokeLater(new Runnable() {
+   public void run() {
+    JFrame frame = new JFrame();
+    frame.add(new RGPanel(700,700));
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.pack();
+    frame.setLocationRelativeTo(null);
+    frame.setVisible(true);
+   }
+  });
+ }
   }
   
   
