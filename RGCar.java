@@ -1,14 +1,12 @@
-import java.awt.Graphics2D;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
+import java.awt.*;
+import javax.swing.*;
+import java.awt.geom.*;
 
 /**
    * A car shape that can be positioned anywhere on the screen.
    * @author DA
 */
-public class RGCar implements Drawable
+public class RGCar extends JPanel
 {
     
     private int x;
@@ -55,27 +53,28 @@ public class RGCar implements Drawable
       Draws a car
       @param g2 the graphics context
    */
-   public void draw(Graphics2D g2)
+   public void paintComponent(Graphics g)
    {
+       Graphics2D g2 = (Graphics2D) g;
       Rectangle2D.Double body 
-         = new Rectangle2D.Double(x, y + 10, 60, 10);      
+         = new Rectangle2D.Double(getX(), getY() + 10, 60, 10);      
       Ellipse2D.Double frontTire 
-         = new Ellipse2D.Double(x + 10, y + 20, 10, 10);
+         = new Ellipse2D.Double(getX() + 10, getY() + 20, 10, 10);
       Ellipse2D.Double rearTire
-         = new Ellipse2D.Double(x + 40, y + 20, 10, 10);
+         = new Ellipse2D.Double(getX() + 40, getY() + 20, 10, 10);
 
       // the bottom of the front windshield
       Point2D.Double r1 
-         = new Point2D.Double(x + 10, y + 10);
+         = new Point2D.Double(getX() + 10, getY() + 10);
       // the front of the roof
       Point2D.Double r2 
-         = new Point2D.Double(x + 20, y);
+         = new Point2D.Double(getX() + 20, getY());
       // the rear of the roof
       Point2D.Double r3 
-         = new Point2D.Double(x + 40, y);
+         = new Point2D.Double(getX() + 40, getY());
       // the bottom of the rear windshield
       Point2D.Double r4 
-         = new Point2D.Double(x + 50, y + 10);
+         = new Point2D.Double(getX() + 50, getY() + 10);
 
       Line2D.Double frontWindshield 
          = new Line2D.Double(r1, r2);
@@ -91,6 +90,31 @@ public class RGCar implements Drawable
       g2.draw(roofTop);      
       g2.draw(rearWindshield);      
    }
+   
+   /**
+     * @return the x
+     */
+    public int getX() {
+        return x;
+    }
+
+    /**
+     * @return the y
+     */
+    public int getY() {
+        return y;
+    }
+   
+   public void setLocation(int newX, int newY){
+       x = newX;
+       y = newY;
+   }
+   
+   public int speed(){
+       return (int)Math.random()*(engineType+engineCylinder+tires);
+   }
+   
+   
 
    
 }

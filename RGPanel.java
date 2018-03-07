@@ -36,7 +36,7 @@ public class RGPanel extends JPanel{
     Graphics2D g2 = (Graphics2D)g;
     
     RGCar car=new RGCar();
-    car.draw(g2);
+    car.paintComponent(g);
       
       
     }
