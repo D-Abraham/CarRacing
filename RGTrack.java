@@ -20,14 +20,13 @@ public class RGTrack extends JPanel{
   public RGTrack(){
     checkPointList = new int[4];
     vehicleList = new RGCar[4];
-    for(int x = 0; x <= vehicleList.length; x++){
-      setUpCars(x);
-      System.out.println("Okk");
-    }
     /*
      * puts the checkPoints evenly on the track the track
      */
     setPoints();
+    for(int x = 0; x < vehicleList.length; x++){
+      setUpCars(x);
+    }
     
   }
   
@@ -71,9 +70,12 @@ public class RGTrack extends JPanel{
       default: drivetype = 0;
       break;
     }
-    vehicleList[index] = new RGCar(1,1,tires,cyl,engtype,drivetype);
+    /*
+     * sets it to an x and y position 
+     * 
+     */
+    vehicleList[index] = new RGCar(checkPointList[(((int)(Math.random()*10))%4)],(index+1)*100,tires,cyl,engtype,drivetype);
   }
-  
   /*
    * iterates through the checkPointsList 
    * giving checkPoints to each item
@@ -83,7 +85,8 @@ public class RGTrack extends JPanel{
       /*
        * the points should be 2/6, 3/6, 4/6, and 5/6 on the track
        */
-      checkPointList[i] = 100*(i+2);
+      checkPointList[i] = 100*(i+1);
+      System.out.println(checkPointList[i]);
     }
   }
   /*
@@ -93,10 +96,26 @@ public class RGTrack extends JPanel{
   public void paintComponent(Graphics g){
     Graphics2D g2 = (Graphics2D) g;
     for(int i = 0; i < vehicleList.length; i++) {
-      Rectangle2D.Double track = new Rectangle2D.Double(0, i*175, 600, 175);
+      Rectangle2D.Double track = new Rectangle2D.Double(0, i*100, 600, 100);
       g2.draw(track);
-      //vehicleList[i].draw(g2); 
+      vehicleList[i].paintComponent(g2);
     }
+  }
+  /*
+   * moves it up
+   * if it passes 0 it will go back to zero
+   * 
+   * error, the speed is to large, needs to be smaller
+   * 
+   * also car should keep track of it's orgine x point
+   */
+  public void move() {
+	  for(int i = 0; i < 4; i++) {
+		  vehicleList[i].setLocation(vehicleList[i].speed(), vehicleList[i].getY());
+		  if(vehicleList[i].getX() >= 600) {
+			  vehicleList[i].setLocation(0, vehicleList[i].getY());
+		  }
+	  }
   }
   
   public int[] getPoint() {
