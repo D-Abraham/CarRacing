@@ -109,9 +109,12 @@ public class RGCar extends JPanel
        x = newX;
        y = newY;
    }
-   
+   /*
+    * random will return 0 if casted to an int because it is always > 1
+    * I just multiplied it by 10 to get a full number
+    */
    public int speed(){
-       return (int)Math.random()*(engineType+engineCylinder+tires);
+       return ((int)(Math.random()*10)*(engineType+engineCylinder+tires));
    }
    
    
