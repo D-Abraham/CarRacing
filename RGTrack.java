@@ -7,12 +7,11 @@
  * if one of the cars reaches it's starting point it will be returned 
  * so that it can be displayed as the winning car
  */
+import java.awt.*;
+import javax.swing.*;
+import java.awt.geom.*;
 
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.geom.Rectangle2D;
-
-public class RGTrack implements Drawable {
+public class RGTrack extends JPanel{
   private int[] checkPointList;
   private RGCar[] vehicleList;
   /*
@@ -91,7 +90,8 @@ public class RGTrack implements Drawable {
    * creates rectangles to simulate the track
    * creates cars within these rectangles
    */
-  public void draw(Graphics2D g2) {
+  public void paintComponent(Graphics g){
+    Graphics2D g2 = (Graphics2D) g;
     for(int i = 0; i < vehicleList.length; i++) {
       Rectangle2D.Double track = new Rectangle2D.Double(0, i*175, 600, 175);
       g2.draw(track);
