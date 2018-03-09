@@ -1,60 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author dan
- */
 import java.awt.*;
 import javax.swing.*;
-import java.awt.event.*; 
+import java.awt.event.*;
 
-public class RGPanel extends JPanel{
+public class RGPanel extends JPanel implements ActionListener{
+  //private RGTrack track = new RGTrack();
   
-  /**
-   * constructor
-   * @param width is the width of the panel.
-   * @param height is the height of the panel.
-   */
-  public RGPanel(int width, int height ){
-    setPreferredSize(new Dimension(width,height));
-    
-    setBackground(Color.white);
-    
+  public RGPanel(){
+    setPreferredSize(new Dimension(700,470)); // Set the size of the panel.
+    setBackground(Color.white); // Set the background color to white.
+    setLayout(null); // Set the layout to null, this will allow the placement of components in any location, rather than grid-like layout.
   }
-  /*
-   * PaintComponent will do all the work, create and and call the draw method of each class.
-   * @param g is the graphics context.
-   */
   
+  // A simple method that can draw things using an Graphics object and displays them to the window. Doesn't return anything and is called internally.
   public void paintComponent(Graphics g){
     super.paintComponent(g);
-    
-    Graphics2D g2 = (Graphics2D)g;
-    
-    RGCar car=new RGCar();
+    Graphics2D g2 = (Graphics2D)g; // Cast the Graphics object as Graphics2D and assign it to the "g2" variable.
+    RGCar car = new RGCar();
     car.paintComponent(g);
-      
-      
-    }
-  
-  public static void main(String[] args) {
-  SwingUtilities.invokeLater(new Runnable() {
-   public void run() {
-    JFrame frame = new JFrame();
-    frame.add(new RGPanel(700,700));
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.pack();
-    frame.setLocationRelativeTo(null);
-    frame.setVisible(true);
-   }
-  });
- }
   }
   
-  
-  
-
+  // The important method that captures all of the events that the buttons call. Has a parameter that holds the ActionEvent object which has all of the information of what was pressed.
+  public void actionPerformed(ActionEvent e){
+    
+  }
+}

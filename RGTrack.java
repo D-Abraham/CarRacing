@@ -18,7 +18,7 @@ public class RGTrack implements Drawable {
   /*
    * constructor initialize the checkPointList and vehicleList arrays
    */
-  public RGTrack() {
+  public RGTrack(){
     checkPointList = new int[4];
     vehicleList = new RGCar[4];
     for(int x = 0; x <= vehicleList.length; x++){
@@ -95,7 +95,7 @@ public class RGTrack implements Drawable {
     for(int i = 0; i < vehicleList.length; i++) {
       Rectangle2D.Double track = new Rectangle2D.Double(0, i*175, 600, 175);
       g2.draw(track);
-      vehicleList[i].draw(g2); 
+      //vehicleList[i].draw(g2); 
     }
   }
   
