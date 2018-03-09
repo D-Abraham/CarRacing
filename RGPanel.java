@@ -2,10 +2,16 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.concurrent.TimeUnit;
 
 public class RGPanel extends JPanel implements ActionListener{
   JButton quitb = new JButton("Quit"); // Initialize the quitb variable which simply just holds a JButton that quits the game when pressed.
-  //private RGTrack track = new RGTrack();
+  JButton restartb = new JButton("Restart"); // Initialize the restartb variable which holds a JButton that resets and restarts the game when pressed.
+  JButton startb = new JButton("Start"); // Initialize the startb variable holds a JButton that starts/continues the timer and the cars.
+  JButton stopb = new JButton("Stop"); // Initialize the stopb variable which holds a JButton that stops the game, it will pause the timer and the cars.
+  Timer timer = new Timer(100,this);
+  private long startTime = 0;
+//private RGTrack track = new RGTrack();
   
   public RGPanel(){
     setPreferredSize(new Dimension(700,470)); // Set the size of the panel.
@@ -14,6 +20,15 @@ public class RGPanel extends JPanel implements ActionListener{
     quitb.setBounds(50,30,80,60); // Set the location and size of the quit button.
     this.add(quitb); // Add the quit button to the panel.
     quitb.addActionListener(this); // Make this class capture all the events of the quit button.
+    restartb.setBounds(460,118,110,60); // Set the location and size of the restart button.
+    this.add(restartb); // Add the restart button to the panel.
+    restartb.addActionListener(this); // Make this class capture all the events of the restart button.
+    startb.setBounds(585,48,110,60); // Set the location and size of the start button.
+    this.add(startb); // Add the start button to the panel.
+    startb.addActionListener(this); // Make this class capture all the events of the start button.
+    stopb.setBounds(585,118,110,60); // Set the location and size of the stop button.
+    this.add(stopb); // Add the stop button to the panel.
+    stopb.addActionListener(this); // Make this class capture all the events of the stop button.
   }
   
   // A simple method that can draw things using an Graphics object and displays them to the window. Doesn't return anything and is called internally.
@@ -26,8 +41,18 @@ public class RGPanel extends JPanel implements ActionListener{
   
   // The important method that captures all of the events that the buttons call. Has a parameter that holds the ActionEvent object which has all of the information of what was pressed.
   public void actionPerformed(ActionEvent e){
+    if(e.getSource() == timer){
+      System.out.println(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - startTime));
+    }
     if(e.getSource() == quitb){ // If source is the quit button, then continue.
       System.exit(0); // Exit the program.
+    }
+    if(e.getSource() == startb){
+      startTime = System.currentTimeMillis();
+      timer.start();
+    }
+    if(e.getSource() == stopb){
+      timer.stop();
     }
   }
 }
