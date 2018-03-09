@@ -111,8 +111,9 @@ public class RGTrack extends JPanel{
    */
   public void move() {
 	  for(int i = 0; i < 4; i++) {
-		  vehicleList[i].setLocation(vehicleList[i].speed(), vehicleList[i].getY());
+		  vehicleList[i].setLocation(vehicleList[i].speed() + vehicleList[i].getX(), vehicleList[i].getY());
 		  if(vehicleList[i].getX() >= 600) {
+
 			  vehicleList[i].setLocation(0, vehicleList[i].getY());
 		  }
 	  }
