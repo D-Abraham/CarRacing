@@ -20,13 +20,13 @@ public class RGPanel extends JPanel implements ActionListener{
     quitb.setBounds(50,0,80,60); // Set the location and size of the quit button.
     this.add(quitb); // Add the quit button to the panel.
     quitb.addActionListener(this); // Make this class capture all the events of the quit button.
-    restartb.setBounds(150,0,110,60); // Set the location and size of the restart button.
+    restartb.setBounds(150,0,80,60); // Set the location and size of the restart button.
     this.add(restartb); // Add the restart button to the panel.
     restartb.addActionListener(this); // Make this class capture all the events of the restart button.
-    startb.setBounds(250,0,110,60); // Set the location and size of the start button.
+    startb.setBounds(250,0,80,60); // Set the location and size of the start button.
     this.add(startb); // Add the start button to the panel.
     startb.addActionListener(this); // Make this class capture all the events of the start button.
-    stopb.setBounds(350,0,110,60); // Set the location and size of the stop button.
+    stopb.setBounds(350,0,80,60); // Set the location and size of the stop button.
     this.add(stopb); // Add the stop button to the panel.
     stopb.addActionListener(this); // Make this class capture all the events of the stop button.
   }
@@ -41,9 +41,9 @@ public class RGPanel extends JPanel implements ActionListener{
   // The important method that captures all of the events that the buttons call. Has a parameter that holds the ActionEvent object which has all of the information of what was pressed.
   public void actionPerformed(ActionEvent e){
     if(e.getSource() == timer){
-    	track.move();
-    	repaint();
-    	System.out.println(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - startTime));
+     track.move();
+     repaint();
+     System.out.println(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - startTime));
     }
     if(e.getSource() == quitb){ // If source is the quit button, then continue.
       System.exit(0); // Exit the program.
