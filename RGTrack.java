@@ -74,7 +74,8 @@ public class RGTrack extends JPanel{
      * sets it to an x and y position 
      * 
      */
-    vehicleList[index] = new RGCar(checkPointList[(((int)(Math.random()*10))%4)],(index+1)*100,tires,cyl,engtype,drivetype);
+    vehicleList[index] = new RGCar(checkPointList[(((int)(Math.random()*10))%4)],((index+1)*130)-(30*index),
+    		tires,cyl,engtype,drivetype, Integer.toString(index)+".png"); //The cars files must be named 0-4 
   }
   /*
    * iterates through the checkPointsList 
@@ -96,7 +97,8 @@ public class RGTrack extends JPanel{
   public void paintComponent(Graphics g){
     Graphics2D g2 = (Graphics2D) g;
     for(int i = 0; i < vehicleList.length; i++) {
-      Rectangle2D.Double track = new Rectangle2D.Double(0, i*100, 600, 100);
+      Rectangle2D.Double track = new Rectangle2D.Double(0, (i+1)*100, 600, 100);
+      g.drawLine(checkPointList[i]+70, 100, checkPointList[i]+70, 501);
       g2.draw(track);
       vehicleList[i].paintComponent(g2);
     }
@@ -109,14 +111,18 @@ public class RGTrack extends JPanel{
    * 
    * also car should keep track of it's orgine x point
    */
-  public void move() {
+  public RGCar move() {
 	  for(int i = 0; i < 4; i++) {
 		  vehicleList[i].setLocation(vehicleList[i].speed() + vehicleList[i].getX(), vehicleList[i].getY());
-		  if(vehicleList[i].getX() >= 600) {
-
+		  if(vehicleList[i].getX() >= 535) {
 			  vehicleList[i].setLocation(0, vehicleList[i].getY());
 		  }
+		  if(vehicleList[i].getX() == vehicleList[i].getOrgineX()) { //ERROR only works if the car is EXACTLY on the point
+			  //If i have vehicleList[i].getX() >= vehicleList[i].getOrgineX() it will be true, not moving any of the cars
+			  return vehicleList[i];
+		  }
 	  }
+	  return null;
   }
   
   public int[] getPoint() {
