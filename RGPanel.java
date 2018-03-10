@@ -12,9 +12,10 @@ public class RGPanel extends JPanel implements ActionListener{
   Timer timer = new Timer(100,this);
   private long startTime = 0;
   private RGTrack track = new RGTrack();
+  JLabel timerText = new JLabel();
   
   public RGPanel(){
-    setPreferredSize(new Dimension(600,500)); // Set the size of the panel.
+    setPreferredSize(new Dimension(601,501)); // Set the size of the panel.
     setBackground(Color.white); // Set the background color to white.
     setLayout(null); // Set the layout to null, this will allow the placement of components in any location, rather than grid-like layout.
     quitb.setBounds(50,0,80,60); // Set the location and size of the quit button.
@@ -29,6 +30,8 @@ public class RGPanel extends JPanel implements ActionListener{
     stopb.setBounds(350,0,80,60); // Set the location and size of the stop button.
     this.add(stopb); // Add the stop button to the panel.
     stopb.addActionListener(this); // Make this class capture all the events of the stop button.
+    timerText.setLocation(570, 0); //trying to have it display the time (doesn't work)
+    this.add(timerText);
   }
   
 //  // A simple method that can draw things using an Graphics object and displays them to the window. Doesn't return anything and is called internally.
@@ -41,9 +44,11 @@ public class RGPanel extends JPanel implements ActionListener{
   // The important method that captures all of the events that the buttons call. Has a parameter that holds the ActionEvent object which has all of the information of what was pressed.
   public void actionPerformed(ActionEvent e){
     if(e.getSource() == timer){
-     track.move();
+     if(track.move() != null) { //moves the car and stops if a car wins
+    	 timer.stop();
+    }//Long.toString(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - startTime)) to add in later
+     timerText.setText("anything!"); //the text should print something
      repaint();
-     System.out.println(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - startTime));
     }
     if(e.getSource() == quitb){ // If source is the quit button, then continue.
       System.exit(0); // Exit the program.
