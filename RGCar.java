@@ -1,6 +1,12 @@
-import java.awt.*;
-import javax.swing.*;
-import java.awt.geom.*;
+
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.JPanel;
+
+
 
 /**
    * A car shape that can be positioned anywhere on the screen.
@@ -8,10 +14,11 @@ import java.awt.geom.*;
 */
 public class RGCar extends JPanel
 {
+
     
-    private int x;
-    private int y;
-    
+    private int orgineX, orgineY;
+    private int x, y;
+    private BufferedImage img;
     private int tires; // 0 = all-season & 1 high performance
     private int engineCylinder; // 1 for each cylinder 
     private int engineType; // 0 = non-turbo & 1 = turbo
@@ -22,12 +29,37 @@ public class RGCar extends JPanel
    */
    public RGCar()
    {
+       orgineX = 0;
+       orgineY = 0;
+       x = 0;
+       y = 0;
+       tires=0;
+       engineCylinder = 4;
+       engineType = 0;
+       driveType = 0;
+      try {
+             
+             img = ImageIO.read(new File("car1.png")); // car1.png must be in 
+                                                       //project folder.
+         } catch (IOException e) {
+         }
+   }
+   
+   public RGCar(String pic)
+   {
+       orgineX = 0;
+       orgineY = 0;
       x = 0;
       y = 0;
       tires=0;
       engineCylinder = 4;
       engineType = 0;
       driveType = 0;
+      try {
+             
+             img = ImageIO.read(new File(pic));
+         } catch (IOException e) {
+         }
    }
     
     /**
@@ -40,13 +72,20 @@ public class RGCar extends JPanel
      * @param driveType
    */
    public RGCar(int x, int y, int tires, int engineCylinder, int engineType,
-   int driveType){
+   int driveType, String pic){
+       orgineX = x;
+       orgineY = y;
       this.x = x;
       this.y = y;
       this.tires= tires;
       this.engineCylinder = engineCylinder;
       this.engineType = engineType;
       this.driveType = driveType;
+      try {
+             
+             img = ImageIO.read(new File(pic));
+         } catch (IOException e) {
+         }
    }
 
    /**
@@ -55,40 +94,11 @@ public class RGCar extends JPanel
    */
    public void paintComponent(Graphics g)
    {
-       Graphics2D g2 = (Graphics2D) g;
-      Rectangle2D.Double body 
-         = new Rectangle2D.Double(getX(), getY() + 10, 60, 10);      
-      Ellipse2D.Double frontTire 
-         = new Ellipse2D.Double(getX() + 10, getY() + 20, 10, 10);
-      Ellipse2D.Double rearTire
-         = new Ellipse2D.Double(getX() + 40, getY() + 20, 10, 10);
-
-      // the bottom of the front windshield
-      Point2D.Double r1 
-         = new Point2D.Double(getX() + 10, getY() + 10);
-      // the front of the roof
-      Point2D.Double r2 
-         = new Point2D.Double(getX() + 20, getY());
-      // the rear of the roof
-      Point2D.Double r3 
-         = new Point2D.Double(getX() + 40, getY());
-      // the bottom of the rear windshield
-      Point2D.Double r4 
-         = new Point2D.Double(getX() + 50, getY() + 10);
-
-      Line2D.Double frontWindshield 
-         = new Line2D.Double(r1, r2);
-      Line2D.Double roofTop 
-         = new Line2D.Double(r2, r3);
-      Line2D.Double rearWindshield
-         = new Line2D.Double(r3, r4);
-   
-      g2.draw(body);
-      g2.draw(frontTire);
-      g2.draw(rearTire);
-      g2.draw(frontWindshield);      
-      g2.draw(roofTop);      
-      g2.draw(rearWindshield);      
+       
+       
+       //g.drawImage(img, x, y, null);  // no image scaleing
+       g.drawImage(img, x, y, 70, 35, null);  // 70,35 is the car image scale
+    
    }
    
    /**
@@ -109,15 +119,24 @@ public class RGCar extends JPanel
        x = newX;
        y = newY;
    }
-   /*
-    * random will return 0 if casted to an int because it is always > 1
-    * I just multiplied it by 10 to get a full number
-    */
+   
    public int speed(){
-       return ((int)(Math.random()*10)*(engineType+engineCylinder+tires));
+       return (int)(Math.random()*(engineType+(engineCylinder/2)+tires))+1;
    }
    
-   
+   /**
+     * @return the orgineX
+     */
+    public int getOrgineX() {
+        return orgineX;
+    }
+
+    /**
+     * @return the orgineY
+     */
+    public int getOrgineY() {
+        return orgineY;
+    }
 
    
 }
