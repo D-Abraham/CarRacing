@@ -11,13 +11,12 @@ import javax.swing.JPanel;
 /**
    * A car shape that can be positioned anywhere on the screen.
    * @author DA
+   * @since 3/5/2018
 */
 public class RGCar extends JPanel
 {
-
-    
-    private int orgineX, orgineY;
-    private int x, y;
+  
+    private int x, y, distanceTraveled;
     private BufferedImage img;
     private int tires; // 0 = all-season & 1 high performance
     private int engineCylinder; // 1 for each cylinder 
@@ -29,17 +28,16 @@ public class RGCar extends JPanel
    */
    public RGCar()
    {
-       orgineX = 0;
-       orgineY = 0;
        x = 0;
        y = 0;
        tires=0;
        engineCylinder = 4;
        engineType = 0;
        driveType = 0;
+       distanceTraveled =0;
       try {
              
-             img = ImageIO.read(new File("car1.png")); // car1.png must be in 
+             img = ImageIO.read(new File("1.png")); // car1.png must be in 
                                                        //project folder.
          } catch (IOException e) {
          }
@@ -47,14 +45,13 @@ public class RGCar extends JPanel
    
    public RGCar(String pic)
    {
-       orgineX = 0;
-       orgineY = 0;
       x = 0;
       y = 0;
       tires=0;
       engineCylinder = 4;
       engineType = 0;
       driveType = 0;
+      distanceTraveled =0;
       try {
              
              img = ImageIO.read(new File(pic));
@@ -72,15 +69,15 @@ public class RGCar extends JPanel
      * @param driveType
    */
    public RGCar(int x, int y, int tires, int engineCylinder, int engineType,
-   int driveType, String pic){
-       orgineX = x;
-       orgineY = y;
+   int driveType, String pic)
+   {    
       this.x = x;
       this.y = y;
       this.tires= tires;
       this.engineCylinder = engineCylinder;
       this.engineType = engineType;
       this.driveType = driveType;
+      distanceTraveled =0;
       try {
              
              img = ImageIO.read(new File(pic));
@@ -114,7 +111,32 @@ public class RGCar extends JPanel
     public int getY() {
         return y;
     }
+    
+    /**
+     * @return the distanceTraveled
+     */
+    public int getDistanceTraveled() {
+        return distanceTraveled;
+    }
+    
+    /**
+     * 
+     * @param velX 
+     * @param velY 
+     */
+    public void moveCar(int velX, int velY) {
+        
+        distanceTraveled += (velX+velY); 
+        x += velX;
+        y += velY;
+
+    }
    
+    /**
+     * To manually change x,y without changing the distance.
+     * @param newX new x coordinate
+     * @param newY new y coordinate
+     */
    public void setLocation(int newX, int newY){
        x = newX;
        y = newY;
@@ -123,20 +145,5 @@ public class RGCar extends JPanel
    public int speed(){
        return (int)(Math.random()*(engineType+(engineCylinder/2)+tires))+1;
    }
-   
-   /**
-     * @return the orgineX
-     */
-    public int getOrgineX() {
-        return orgineX;
-    }
-
-    /**
-     * @return the orgineY
-     */
-    public int getOrgineY() {
-        return orgineY;
-    }
-
    
 }

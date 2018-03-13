@@ -113,12 +113,11 @@ public class RGTrack extends JPanel{
    */
   public RGCar move() {
 	  for(int i = 0; i < 4; i++) {
-		  vehicleList[i].setLocation(vehicleList[i].speed() + vehicleList[i].getX(), vehicleList[i].getY());
+		  vehicleList[i].moveCar(vehicleList[i].speed() , 0); // DA: updated to the new method
 		  if(vehicleList[i].getX() >= 535) {
 			  vehicleList[i].setLocation(0, vehicleList[i].getY());
 		  }
-		  if(vehicleList[i].getX() == vehicleList[i].getOrgineX()) { //ERROR only works if the car is EXACTLY on the point
-			  //If i have vehicleList[i].getX() >= vehicleList[i].getOrgineX() it will be true, not moving any of the cars
+		  if(vehicleList[i].getDistanceTraveled() >=600) { //DA: once a car distance = track lenght, that car is the winner. 
 			  return vehicleList[i];
 		  }
 	  }
