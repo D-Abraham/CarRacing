@@ -50,11 +50,8 @@ public class RGPanel extends JPanel implements ActionListener{
   // The important method that captures all of the events that the buttons call. Has a parameter that holds the ActionEvent object which has all of the information of what was pressed.
   public void actionPerformed(ActionEvent e){
         
-	  
     if(e.getSource() == timer){
-        RGCar temp = new RGCar();
-    	temp = track.move();
-     if(temp != null) { //moves the car and stops if a car wins
+     if(track.move()) { //keeps iterating through the cars until one wins
     	 timer.stop();
     	 winningCar.setText("1st place "+track.getWinner());
          secondWinner.setText("2nd place "+track.get2ndWinner());
