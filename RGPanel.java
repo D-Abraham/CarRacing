@@ -12,7 +12,9 @@ public class RGPanel extends JPanel implements ActionListener{
   Timer timer = new Timer(100,this);
   private long startTime = 0;
   private RGTrack track = new RGTrack();
-  JLabel timerText = new JLabel();
+  JTextField timerText = new JTextField("00:00");
+  JTextField winningCar = new JTextField("");
+  JTextField winCarSpeed = new JTextField("");
   
   public RGPanel(){
     setPreferredSize(new Dimension(601,501)); // Set the size of the panel.
@@ -30,8 +32,12 @@ public class RGPanel extends JPanel implements ActionListener{
     stopb.setBounds(350,0,80,60); // Set the location and size of the stop button.
     this.add(stopb); // Add the stop button to the panel.
     stopb.addActionListener(this); // Make this class capture all the events of the stop button.
-    timerText.setLocation(570, 0); //trying to have it display the time (doesn't work)
+    timerText.setBounds(500,0, 100,30);  //trying to have it display the time (doesn't work)
     this.add(timerText);
+    winningCar.setBounds(500,30, 100,30);
+    this.add(winningCar);
+    winCarSpeed.setBounds(500,60, 100,30);
+    this.add(winCarSpeed);
   }
   
 //  // A simple method that can draw things using an Graphics object and displays them to the window. Doesn't return anything and is called internally.
@@ -43,11 +49,15 @@ public class RGPanel extends JPanel implements ActionListener{
   
   // The important method that captures all of the events that the buttons call. Has a parameter that holds the ActionEvent object which has all of the information of what was pressed.
   public void actionPerformed(ActionEvent e){
+	  RGCar temp = new RGCar();
     if(e.getSource() == timer){
-     if(track.move() != null) { //moves the car and stops if a car wins
+    	temp = track.move();
+     if(temp != null) { //moves the car and stops if a car wins
     	 timer.stop();
-    }//Long.toString(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - startTime)) to add in later
-     timerText.setText("anything!"); //the text should print something
+    	 winningCar.setText(temp.toString());
+    	// winCarSpeed.setText(temp.getSpeed()); to show to speed of the car (with no random value
+    }
+     timerText.setText(Long.toString(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - startTime))); //the text should print something
      repaint();
     }
     if(e.getSource() == quitb){ // If source is the quit button, then continue.
