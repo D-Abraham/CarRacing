@@ -14,7 +14,7 @@ public class RGPanel extends JPanel implements ActionListener{
   private RGTrack track = new RGTrack();
   JTextField timerText = new JTextField("00:00");
   JTextField winningCar = new JTextField("");
-  JTextField winCarSpeed = new JTextField("");
+  JTextField secondWinner = new JTextField("");
   
   public RGPanel(){
     setPreferredSize(new Dimension(601,501)); // Set the size of the panel.
@@ -36,8 +36,8 @@ public class RGPanel extends JPanel implements ActionListener{
     this.add(timerText);
     winningCar.setBounds(500,30, 100,30);
     this.add(winningCar);
-    winCarSpeed.setBounds(500,60, 100,30);
-    this.add(winCarSpeed);
+    secondWinner.setBounds(500,60, 100,30);
+    this.add(secondWinner);
   }
   
 //  // A simple method that can draw things using an Graphics object and displays them to the window. Doesn't return anything and is called internally.
@@ -49,13 +49,16 @@ public class RGPanel extends JPanel implements ActionListener{
   
   // The important method that captures all of the events that the buttons call. Has a parameter that holds the ActionEvent object which has all of the information of what was pressed.
   public void actionPerformed(ActionEvent e){
-	  RGCar temp = new RGCar();
+        
+	  
     if(e.getSource() == timer){
+        RGCar temp = new RGCar();
     	temp = track.move();
      if(temp != null) { //moves the car and stops if a car wins
     	 timer.stop();
-    	 winningCar.setText(temp.toString());
-    	// winCarSpeed.setText(temp.getSpeed()); to show to speed of the car (with no random value
+    	 winningCar.setText("1st place "+track.getWinner());
+         secondWinner.setText("2nd place "+track.get2ndWinner());
+    	// secondWinner.setText(temp.getSpeed()); to show to speed of the car (with no random value
     }
      timerText.setText(Long.toString(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - startTime))); //the text should print something
      repaint();
@@ -69,6 +72,16 @@ public class RGPanel extends JPanel implements ActionListener{
     }
     if(e.getSource() == stopb){
       timer.stop();
+    }
+    
+//DA
+    if(e.getSource() == restartb){
+      track.reset();
+      timer.stop();
+      winningCar.setText("");
+      secondWinner.setText("");
+      timerText.setText("00:00");
+      repaint();
     }
   }
 }

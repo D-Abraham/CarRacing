@@ -8,13 +8,12 @@ import javax.swing.JPanel;
 
 
 /**
-   * A car shape that can be positioned anywhere on the screen.
+   * A car image that can be positioned anywhere on the screen.
    * @author DA
    * @since 3/5/2018
 */
 public class RGCar extends JPanel
 {
-	private String carNum;
     private int x, y, distanceTraveled;
     private BufferedImage img;
     private int tires; // 0 = all-season & 1 high performance
@@ -42,6 +41,11 @@ public class RGCar extends JPanel
          }
    }
    
+   /**
+    * Constructs a car at the default location (0,0), and uses pic as picture of
+    * the object.
+    * @param pic to be used as a picture for the object 
+    */
    public RGCar(String pic)
    {
       x = 0;
@@ -62,15 +66,16 @@ public class RGCar extends JPanel
      * Constructs a car. 
      * @param x the x coordinate.
      * @param y the y coordinate.
-     * @param  engineCylinder
-     * @param engineCylinder
-     * @param engineType
-     * @param driveType
+     * @param  tires tires type.
+     * @param engineCylinder number of cylinder.
+     * @param engineType non-turbo or turbo.
+     * @param driveType AWD or FD.
+     * @param pic to be used as a picture for the object.
    */
    public RGCar(int x, int y, int tires, int engineCylinder, int engineType,
    int driveType, String pic)
    {    
-	  carNum = pic;
+
       this.x = x;
       this.y = y;
       this.tires= tires;
@@ -95,7 +100,6 @@ public class RGCar extends JPanel
        
        //g.drawImage(img, x, y, null);  // no image scaleing
        g.drawImage(img, x, y, 70, 35, null);  // 70,35 is the car image scale
-       g.drawString(toString(), x+20, y -5);
     
    }
    
@@ -123,10 +127,8 @@ public class RGCar extends JPanel
     /**
      * 
      * @param velX 
-     * @param velY 
      */
     public void moveCar(int velX) {
-        
         distanceTraveled += velX; 
         x += velX;
 
@@ -134,6 +136,7 @@ public class RGCar extends JPanel
    
     /**
      * To manually change x,y without changing the distance.
+     * Note: will not effect distance. 
      * @param newX new x coordinate
      * @param newY new y coordinate
      */
@@ -142,12 +145,30 @@ public class RGCar extends JPanel
        y = newY;
    }
    
+   /**
+    * calculates and returns a random number (used as speed) according to car features.
+    * @return random number according to car features  
+    */
    public int speed(){
        return (int)(Math.random()*(engineType+(engineCylinder/2)+tires))+1;
    }
    
-   public String toString() {
-	   return "Car" + carNum;
+   @Override
+   public String toString(){
+       return "Car coordinate: " + x+", "+y+", distance traveled "+distanceTraveled;
    }
    
+ @Override 
+    public boolean equals(Object obj){
+        if(obj == this) return true;
+        if(obj == null) return false;
+        if(this.getClass() == obj.getClass()){
+             RGCar car = (RGCar) obj;
+            return (this.getX() == car.getX()) && (this.getY() == car.getY()) &&
+                    (this.getDistanceTraveled() == car.getDistanceTraveled());
+    }
+        else{ 
+            return false;
+}   
+    }  
 }

@@ -14,12 +14,16 @@ import java.awt.geom.*;
 public class RGTrack extends JPanel{
   private int[] checkPointList;
   private RGCar[] vehicleList;
+  private int trackSize; //DA
+  private int carSize; //DA
   /*
    * constructor initialize the checkPointList and vehicleList arrays
    */
   public RGTrack(){
     checkPointList = new int[4];
     vehicleList = new RGCar[4];
+    trackSize = 600; //default size
+    carSize = 65; // default car size
     /*
      * puts the checkPoints evenly on the track the track
      */
@@ -87,7 +91,7 @@ public class RGTrack extends JPanel{
        * the points should be 2/6, 3/6, 4/6, and 5/6 on the track
        */
       checkPointList[i] = 100*(i+1);
-      System.out.println(checkPointList[i]);
+      //System.out.println(checkPointList[i]);
     }
   }
   /*
@@ -114,11 +118,11 @@ public class RGTrack extends JPanel{
   public RGCar move() {
 	  for(int i = 0; i < 4; i++) {
 		  vehicleList[i].moveCar(vehicleList[i].speed()); // DA: updated to the new method
-		  if(vehicleList[i].getX() >= 535) {
+		  if(vehicleList[i].getX() >= trackSize-carSize) {
 			  vehicleList[i].setLocation(0, vehicleList[i].getY());
 		  }
-		  System.out.println(vehicleList[i].getDistanceTraveled());
-		  if(vehicleList[i].getDistanceTraveled() >= 635) { //DA: once a car distance = track lenght, that car is the winner. 
+		  //System.out.println(vehicleList[i].getDistanceTraveled());
+		  if(vehicleList[i].getDistanceTraveled() >= trackSize-carSize) { //DA: once a car distance = track lenght, that car is the winner. 
 			  return vehicleList[i];
 		  }
 	  }
@@ -132,5 +136,59 @@ public class RGTrack extends JPanel{
   public RGCar[] getVehicleList() {
     return vehicleList;
   }
+  
+  /**
+   * Written by DA
+   * Returns the winner, or the car with more distance.
+   * Note: it will return the object index + 1. 
+   * @return who's the winner. 
+   */
+  public int getWinner(){
+      for(int index = 0; index< vehicleList.length; index++){
+          if(vehicleList[index].getDistanceTraveled() >=trackSize-carSize){
+              return index+1;
+          }
+      }
+      return-1;
+  }
+  
+  /**
+   * Written by DA
+   * Returns who came in the second place. 
+   * Note: it will return the object index + 1. 
+   * @return who came in the 2nd place. 
+   */
+  public int get2ndWinner(){
+      int temp;
+      int second=0;
+      for(int index = 0; index< vehicleList.length; index++){
+          
+          if(vehicleList[index].getDistanceTraveled() < trackSize-carSize ){
+              temp = index;
+              for(int index2 = index+1; index2<vehicleList.length; index2++){
+                  if(vehicleList[index2].getDistanceTraveled() < trackSize-carSize &&
+                          vehicleList[index2].getDistanceTraveled() >=
+                          vehicleList[temp].getDistanceTraveled() ){
+                      temp = index2;
+                      second=temp;
+                  }
+                  
+              }
+              return second+1;
+          }
+          
+      }
+      return -1;
+  }
+  
+  /**
+   * Written by DA
+   * used to reset all cars locations.
+   */
+  public void reset(){
+      for(int x = 0; x < vehicleList.length; x++){
+          setUpCars(x);
+          }
+      }
   
 }
