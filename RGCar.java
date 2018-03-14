@@ -1,4 +1,3 @@
-
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -15,7 +14,7 @@ import javax.swing.JPanel;
 */
 public class RGCar extends JPanel
 {
-  
+	private String carNum;
     private int x, y, distanceTraveled;
     private BufferedImage img;
     private int tires; // 0 = all-season & 1 high performance
@@ -71,6 +70,7 @@ public class RGCar extends JPanel
    public RGCar(int x, int y, int tires, int engineCylinder, int engineType,
    int driveType, String pic)
    {    
+	  carNum = pic;
       this.x = x;
       this.y = y;
       this.tires= tires;
@@ -80,7 +80,7 @@ public class RGCar extends JPanel
       distanceTraveled =0;
       try {
              
-             img = ImageIO.read(new File(pic));
+             img = ImageIO.read(new File(pic+".png"));
          } catch (IOException e) {
          }
    }
@@ -95,6 +95,7 @@ public class RGCar extends JPanel
        
        //g.drawImage(img, x, y, null);  // no image scaleing
        g.drawImage(img, x, y, 70, 35, null);  // 70,35 is the car image scale
+       g.drawString(toString(), x+20, y -5);
     
    }
    
@@ -124,11 +125,10 @@ public class RGCar extends JPanel
      * @param velX 
      * @param velY 
      */
-    public void moveCar(int velX, int velY) {
+    public void moveCar(int velX) {
         
-        distanceTraveled += (velX+velY); 
+        distanceTraveled += velX; 
         x += velX;
-        y += velY;
 
     }
    
@@ -144,6 +144,10 @@ public class RGCar extends JPanel
    
    public int speed(){
        return (int)(Math.random()*(engineType+(engineCylinder/2)+tires))+1;
+   }
+   
+   public String toString() {
+	   return "Car" + carNum;
    }
    
 }
