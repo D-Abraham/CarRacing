@@ -75,7 +75,7 @@ public class RGTrack extends JPanel{
      * 
      */
     vehicleList[index] = new RGCar(checkPointList[(((int)(Math.random()*10))%4)],((index+1)*130)-(30*index),
-    		tires,cyl,engtype,drivetype, Integer.toString(index)+".png"); //The cars files must be named 0-4 
+    		tires,cyl,engtype,drivetype, Integer.toString(index)); //The cars files must be named 0-4 
   }
   /*
    * iterates through the checkPointsList 
@@ -113,11 +113,12 @@ public class RGTrack extends JPanel{
    */
   public RGCar move() {
 	  for(int i = 0; i < 4; i++) {
-		  vehicleList[i].moveCar(vehicleList[i].speed() , 0); // DA: updated to the new method
+		  vehicleList[i].moveCar(vehicleList[i].speed()); // DA: updated to the new method
 		  if(vehicleList[i].getX() >= 535) {
 			  vehicleList[i].setLocation(0, vehicleList[i].getY());
 		  }
-		  if(vehicleList[i].getDistanceTraveled() >=600) { //DA: once a car distance = track lenght, that car is the winner. 
+		  System.out.println(vehicleList[i].getDistanceTraveled());
+		  if(vehicleList[i].getDistanceTraveled() >= 635) { //DA: once a car distance = track lenght, that car is the winner. 
 			  return vehicleList[i];
 		  }
 	  }
