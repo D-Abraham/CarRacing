@@ -103,19 +103,18 @@ public class RGTrack extends JPanel{
     for(int i = 0; i < vehicleList.length; i++) {
       Rectangle2D.Double track = new Rectangle2D.Double(0, (i+1)*100, 600, 100);
       g.drawLine(checkPointList[i]+70, 100, checkPointList[i]+70, 501);
+      g.drawString("Car " + Integer.toString(i+1), 0, ((i+1)*130)-(30*i));
       g2.draw(track);
       vehicleList[i].paintComponent(g2);
     }
   }
   /*
-   * moves it up
-   * if it passes 0 it will go back to zero
-   * 
-   * error, the speed is to large, needs to be smaller
-   * 
-   * also car should keep track of it's orgine x point
+   * moves the cars in forwards
+   * if a car reaches the end of the screen it's x will become zero
+   * if the car's distance reaches the the lenght of the screen then the 
+   * 	car will have gone a full distance and will have won
    */
-  public RGCar move() {
+  public boolean move() {
 	  for(int i = 0; i < 4; i++) {
 		  vehicleList[i].moveCar(vehicleList[i].speed()); // DA: updated to the new method
 		  if(vehicleList[i].getX() >= trackSize-carSize) {
@@ -123,10 +122,10 @@ public class RGTrack extends JPanel{
 		  }
 		  //System.out.println(vehicleList[i].getDistanceTraveled());
 		  if(vehicleList[i].getDistanceTraveled() >= trackSize-carSize) { //DA: once a car distance = track lenght, that car is the winner. 
-			  return vehicleList[i];
+			  return true;
 		  }
 	  }
-	  return null;
+	  return false;
   }
   
   public int[] getPoint() {
