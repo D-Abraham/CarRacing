@@ -34,6 +34,7 @@ public class RGTrack extends JPanel{
     
   }
   
+  // Written by Vrej.
   public void setUpCars(int index){
     int tires;
     int test = (int)(Math.random()*2);
@@ -79,7 +80,7 @@ public class RGTrack extends JPanel{
      * 
      */
     vehicleList[index] = new RGCar(checkPointList[(((int)(Math.random()*10))%4)],((index+1)*130)-(30*index),
-    		tires,cyl,engtype,drivetype, Integer.toString(index)); //The cars files must be named 0-4 
+      tires,cyl,engtype,drivetype, Integer.toString(index)); //The cars files must be named 0-4 
   }
   /*
    * iterates through the checkPointsList 
@@ -112,20 +113,20 @@ public class RGTrack extends JPanel{
    * moves the cars in forwards
    * if a car reaches the end of the screen it's x will become zero
    * if the car's distance reaches the the lenght of the screen then the 
-   * 	car will have gone a full distance and will have won
+   *  car will have gone a full distance and will have won
    */
   public boolean move() {
-	  for(int i = 0; i < 4; i++) {
-		  vehicleList[i].moveCar(vehicleList[i].speed()); // DA: updated to the new method
-		  if(vehicleList[i].getX() >= trackSize-carSize) {
-			  vehicleList[i].setLocation(0, vehicleList[i].getY());
-		  }
-		  //System.out.println(vehicleList[i].getDistanceTraveled());
-		  if(vehicleList[i].getDistanceTraveled() >= trackSize-carSize) { //DA: once a car distance = track lenght, that car is the winner. 
-			  return true;
-		  }
-	  }
-	  return false;
+   for(int i = 0; i < 4; i++) {
+    vehicleList[i].moveCar(vehicleList[i].speed()); // DA: updated to the new method
+    if(vehicleList[i].getX() >= trackSize-carSize) {
+     vehicleList[i].setLocation(0, vehicleList[i].getY());
+    }
+    //System.out.println(vehicleList[i].getDistanceTraveled());
+    if(vehicleList[i].getDistanceTraveled() >= trackSize-carSize) { //DA: once a car distance = track lenght, that car is the winner. 
+     return true;
+    }
+   }
+   return false;
   }
   
   public int[] getPoint() {
