@@ -18,7 +18,7 @@ public class RGPanel extends JPanel implements ActionListener{
   JTextField secondWinner = new JTextField("");
   
   public RGPanel(){
-    setPreferredSize(new Dimension(601,501)); // Set the size of the panel.
+    setPreferredSize(new Dimension(601,601)); // Set the size of the panel.
     setBackground(Color.white); // Set the background color to white.
     setLayout(null); // Set the layout to null, this will allow the placement of components in any location, rather than grid-like layout.
     quitb.setBounds(20,0,80,60); // Set the location and size of the quit button.
@@ -34,9 +34,9 @@ public class RGPanel extends JPanel implements ActionListener{
     this.add(stopb); // Add the stop button to the panel.
     stopb.addActionListener(this); // Make this class capture all the events of the stop button.
     
-    winningCar.setBounds(500,30,100,30);
+    winningCar.setBounds(450,30,150,30);
     this.add(winningCar);
-    secondWinner.setBounds(500,60,100,30);
+    secondWinner.setBounds(450,60,150,30);
     this.add(secondWinner);
   }
   

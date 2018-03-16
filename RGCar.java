@@ -14,7 +14,9 @@ import javax.swing.JPanel;
 */
 public class RGCar extends JPanel
 {
-    private int x, y, distanceTraveled;
+
+    
+    private int x, y,startAtX, distanceTraveled;
     private BufferedImage img;
     private int tires; // 0 = all-season & 1 high performance
     private int engineCylinder; // 1 for each cylinder 
@@ -28,6 +30,7 @@ public class RGCar extends JPanel
    {
        x = 0;
        y = 0;
+       startAtX=0;
        tires=0;
        engineCylinder = 4;
        engineType = 0;
@@ -41,26 +44,6 @@ public class RGCar extends JPanel
          }
    }
    
-   /**
-    * Constructs a car at the default location (0,0), and uses pic as picture of
-    * the object.
-    * @param pic to be used as a picture for the object 
-    */
-   public RGCar(String pic)
-   {
-      x = 0;
-      y = 0;
-      tires=0;
-      engineCylinder = 4;
-      engineType = 0;
-      driveType = 0;
-      distanceTraveled =0;
-      try {
-             
-             img = ImageIO.read(new File(pic));
-         } catch (IOException e) {
-         }
-   }
     
     /**
      * Constructs a car. 
@@ -78,6 +61,7 @@ public class RGCar extends JPanel
 
       this.x = x;
       this.y = y;
+      startAtX = x;
       this.tires= tires;
       this.engineCylinder = engineCylinder;
       this.engineType = engineType;
@@ -96,9 +80,6 @@ public class RGCar extends JPanel
    */
    public void paintComponent(Graphics g)
    {
-       
-       
-       //g.drawImage(img, x, y, null);  // no image scaleing
        g.drawImage(img, x, y, 70, 35, null);  // 70,35 is the car image scale
     
    }
@@ -115,6 +96,13 @@ public class RGCar extends JPanel
      */
     public int getY() {
         return y;
+    }
+    
+    /**
+     * @return the startAtX
+     */
+    public int getStartAtX() {
+        return startAtX;
     }
     
     /**

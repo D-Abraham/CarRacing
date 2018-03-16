@@ -95,17 +95,57 @@ public class RGTrack extends JPanel{
       //System.out.println(checkPointList[i]);
     }
   }
+  
+  /**
+   * Written by DA.
+   * Draws a broken line which represent a broken yellow line.
+   * 
+   * @param g 
+   * @param startAtX
+   * @param y
+   * @param gap the empty gap length.
+   */
+  public void drawLane(Graphics g, int startAtX, int y, int gap){
+      for(int x=startAtX+5; x<600; x+=25){
+        g.drawLine(x,y,x+gap,y);   
+    }
+  }
+  /**
+   * Written by DA.
+   * Draws checkpoint (vertical line).
+   * @param g
+   * @param x
+   * @param startAtY
+   * @param gap the empty gap length.
+   */
+  public void drawCheckpiont(Graphics g, int x, int startAtY, int gap){
+      for(int y=startAtY; y<500; y+=100){
+        g.drawLine(x,y,x,y+gap);   
+    }
+  }
+  
+  
   /*
    * creates rectangles to simulate the track
    * creates cars within these rectangles
    */
   public void paintComponent(Graphics g){
     Graphics2D g2 = (Graphics2D) g;
+    g.drawLine(0, 100, 600, 100); //DA:top line (sold line)
+    g.drawLine(0, 500, 600, 500); //DA:botton line (sold line)
+    
+    drawLane(g, 0, 200, 15);
+    drawLane(g, 0, 300, 15);
+    drawLane(g, 0, 400, 15);
+    
+
     for(int i = 0; i < vehicleList.length; i++) {
-      Rectangle2D.Double track = new Rectangle2D.Double(0, (i+1)*100, 600, 100);
-      g.drawLine(checkPointList[i]+70, 100, checkPointList[i]+70, 501);
-      g.drawString("Car " + Integer.toString(i+1), 0, ((i+1)*130)-(30*i));
-      g2.draw(track);
+      //Rectangle2D.Double track = new Rectangle2D.Double(0, (i+1)*100, 600, 100);
+      //g.drawLine(checkPointList[i]+70, 100, checkPointList[i]+70, 501);
+      drawCheckpiont(g,checkPointList[i]+70, 110, 80);
+      g.drawString("Car " + Integer.toString(i+1),vehicleList[i].getStartAtX()+20 , ((i+1)*130)-(30*i)); // This is for Nic :) <DA>
+      
+      //g2.draw(track);
       vehicleList[i].paintComponent(g2);
     }
   }
