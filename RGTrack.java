@@ -22,7 +22,7 @@ public class RGTrack extends JPanel{
   public RGTrack(){
     checkPointList = new int[4];
     vehicleList = new RGCar[4];
-    trackSize = 600; //default size
+    trackSize = 565; //default size
     carSize = 65; // default car size
     /*
      * puts the checkPoints evenly on the track the track
@@ -110,15 +110,20 @@ public class RGTrack extends JPanel{
     drawLane(g, 0, 300, 15,Color.YELLOW); 
     drawLane(g, 0, 400, 15,Color.YELLOW); 
     
-
+    g.drawString("Asphalt", 0, 520);
+    g.drawString("Ice", 160, 520);
+    g.drawString("Snow", 260, 520);
+    g.drawString("Rain", 360, 520);
+    g.drawString("Gravel", 460, 520);
+	Color[] colors = { Color.LIGHT_GRAY, Color.gray, Color.blue, Color.black };
     for(int i = 0; i < vehicleList.length; i++) {
-      //Rectangle2D.Double track = new Rectangle2D.Double(0, (i+1)*100, 600, 100);
-      //g.drawLine(checkPointList[i]+70, 100, checkPointList[i]+70, 501);
-      drawCheckpiont(g,checkPointList[i]+70, 110, 80, Color.BLACK); //DA
-      g.setColor(Color.RED);
-      g.drawString("Car " + Integer.toString(i+1),vehicleList[i].getStartAtX()+20 , ((i+1)*130)-(30*i)); // DA: This is for Nic :) 
-      
-      //g2.draw(track);
+    	/*
+    	 * each item in the loop will be given a color based on it's terrain type
+    	 * *note for some reason brown wasn't an option so i used ice and changed it to gray
+    	 */
+      drawCheckpiont(g,checkPointList[i]+70, 110, 80, colors[i]);
+      g.drawString("Car " + Integer.toString(i+1),vehicleList[i].getStartAtX()+20 , ((i+1)*130)-(30*i)); // This is for Nic :) <DA>
+
       vehicleList[i].paintComponent(g2);
     }
   }
@@ -129,8 +134,26 @@ public class RGTrack extends JPanel{
    *  car will have gone a full distance and will have won
    */
   public boolean move() {
-   for(int i = 0; i < 4; i++) {
-    vehicleList[i].moveCar(vehicleList[i].speed()); // DA: updated to the new method
+	  /*
+	   * NB update the moveCar method
+	   * in car class (takes an int for terrain)
+	   */
+	   for(int i = 0; i < 4; i++) {
+		if(vehicleList[i].getX() >= checkPointList[0] && vehicleList[i].getX() <= checkPointList[1]) {
+			vehicleList[i].moveCar(vehicleList[i].speed()); // DA: updated to the new method
+		}
+		else if(vehicleList[i].getX() >= checkPointList[1] && vehicleList[i].getX() <= checkPointList[2]) {
+			vehicleList[i].moveCar(vehicleList[i].speed()); // DA: updated to the new method
+		}
+		else if(vehicleList[i].getX() >= checkPointList[2] && vehicleList[i].getX() <= checkPointList[3]) {
+			vehicleList[i].moveCar(vehicleList[i].speed()); // DA: updated to the new method
+		}
+		else if(vehicleList[i].getX() >= checkPointList[3] && vehicleList[i].getX() <= trackSize) {
+			vehicleList[i].moveCar(vehicleList[i].speed()); // DA: updated to the new method
+		}
+		else {
+			vehicleList[i].moveCar(vehicleList[i].speed()); // DA: updated to the new method
+		}
     if(vehicleList[i].getX() >= trackSize-carSize) {
      vehicleList[i].setLocation(0, vehicleList[i].getY());
     }
@@ -177,10 +200,11 @@ public class RGTrack extends JPanel{
    * @param color line color.
    */
   public void drawCheckpiont(Graphics g, int x, int startAtY, int gap, Color color){
-      g.setColor(color);
       for(int y=startAtY; y<500; y+=100){
-        g.drawLine(x,y,x,y+gap);   
+    	g.setColor(color);
+        g.drawLine(x,y,x,y+gap);  
     }
+      g.setColor(Color.BLACK);
   }
   
   /**
