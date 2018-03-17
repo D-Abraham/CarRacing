@@ -14,11 +14,10 @@ import javax.swing.JPanel;
 */
 public class RGCar extends JPanel
 {
-
     
     private int x, y,startAtX, distanceTraveled;
     private BufferedImage img;
-    private int tires; // 0 = all-season & 1 high performance
+    private int tires; // 0 = all-season, 1 high performance & 2 snowtires
     private int engineCylinder; // 1 for each cylinder 
     private int engineType; // 0 = non-turbo & 1 = turbo
     private int driveType;  // 0 = FWD & 1 = AWD
@@ -135,15 +134,67 @@ public class RGCar extends JPanel
    
    /**
     * calculates and returns a random number (used as speed) according to car features.
-    * @return random number according to car features  
+    * @param terrain 
+    * @return random number according to car features and terrain.
     */
-   public int speed(){
-       return (int)(Math.random()*(engineType+(engineCylinder/2)+tires))+1;
+   public int speed(int terrain){
+       
+       switch(terrain){
+           case 0: //asphalt
+               return (int)(Math.random()*(engineType+(engineCylinder/2)+tires))+1;
+               
+           case 1: // Ice
+               if(tires == 2){ //snowtires: adds (2) + (1) as a bonus
+                   return (int)(Math.random()*(engineType+(engineCylinder/2)+
+                           (tires+1)+driveType))+1;
+               }
+               else{ // adds -(tires)-1 as penalty 
+                   return (int)(Math.random()*(engineType+(engineCylinder/2)+
+                           driveType))+1;
+               }
+               
+           case 2: //snow
+               if(tires == 2){ // snowtires: adds (2) + (1) as a bonus
+                   return (int)(Math.random()*(engineType+(engineCylinder/2)+
+                           (tires+1)+driveType))+1;
+               }
+               else if(tires == 0){ //adds (1) as a bonus for all-season. 
+                   return (int)(Math.random()*(engineType+(engineCylinder/2)+
+                           driveType+1))+1;
+               }
+               else{ // Adds -1 as penalty
+                   return (int)(Math.random()*(engineType+(engineCylinder/2)-1))+1;
+               }
+               
+           case 3: //Rain
+               if (tires == 1){ // high performance: adds (1 for tires) + (1) as a bonus
+                   return (int)(Math.random()*(engineType+(engineCylinder/2)+
+                           (tires+1)+driveType))+1;
+               }
+               else{
+                   return (int)(Math.random()*(engineType+(engineCylinder/2)+
+                           tires+driveType))+1;
+               }
+               
+           case 4: // Gravel
+               return (int)(Math.random()*(engineType+(engineCylinder/2)+tires+
+                       driveType))+1;           
+       }
+      
+    return-1;
    }
    
    @Override
-   public String toString(){
-       return "Car coordinate: " + x+", "+y+", distance traveled "+distanceTraveled;
+   public String toString(){ // 0 is false and 1 is ture
+       String tires="snowtires";
+       String driveT="FD";
+       String turbo="non-turbo";
+       if(this.tires == 0){tires = "all-season";}
+       if(this.tires == 1){tires = "high performance";}
+       if(this.engineType == 1){turbo = "turbo";}
+       if(this.driveType == 1){driveT = "AWD";}
+       return "Features: "+engineCylinder+" Cyl, "+ turbo+", "+ tires+ " tires"+
+               " and "+driveT+" drive.";
    }
    
  @Override 
@@ -157,6 +208,7 @@ public class RGCar extends JPanel
     }
         else{ 
             return false;
-}   
-    }  
+        }
+    }
+  
 }

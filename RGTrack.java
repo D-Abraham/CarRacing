@@ -37,12 +37,13 @@ public class RGTrack extends JPanel{
   // Written by Vrej.
   public void setUpCars(int index){
     int tires;
-    int test = (int)(Math.random()*2);
+    int test = (int)(Math.random()*3);
     switch(test){
       case 0: tires = 0;
       break;
       case 1: tires = 1;
       break;
+      case 2: tires =2; //DA
       default: tires = 0;
       break;
     }
@@ -109,12 +110,13 @@ public class RGTrack extends JPanel{
     drawLane(g, 0, 200, 15, Color.YELLOW); //DA: broken (dashed) yellow line. 
     drawLane(g, 0, 300, 15,Color.YELLOW); 
     drawLane(g, 0, 400, 15,Color.YELLOW); 
-    
+    g.setColor(Color.red);
     g.drawString("Asphalt", 0, 520);
     g.drawString("Ice", 160, 520);
     g.drawString("Snow", 260, 520);
     g.drawString("Rain", 360, 520);
     g.drawString("Gravel", 460, 520);
+    
 	Color[] colors = { Color.LIGHT_GRAY, Color.gray, Color.blue, Color.black };
     for(int i = 0; i < vehicleList.length; i++) {
     	/*
@@ -122,8 +124,10 @@ public class RGTrack extends JPanel{
     	 * *note for some reason brown wasn't an option so i used ice and changed it to gray
     	 */
       drawCheckpiont(g,checkPointList[i]+70, 110, 80, colors[i]);
+      g.setColor(Color.red);
       g.drawString("Car " + Integer.toString(i+1),vehicleList[i].getStartAtX()+20 , ((i+1)*130)-(30*i)); // This is for Nic :) <DA>
-
+      g.setColor(Color.BLACK);
+      g.drawString("Car "+(i+1)+" "+vehicleList[i].toString(), 5, 550+(i*13) );//DA: Car features
       vehicleList[i].paintComponent(g2);
     }
   }
@@ -140,19 +144,19 @@ public class RGTrack extends JPanel{
 	   */
 	   for(int i = 0; i < 4; i++) {
 		if(vehicleList[i].getX() >= checkPointList[0] && vehicleList[i].getX() <= checkPointList[1]) {
-			vehicleList[i].moveCar(vehicleList[i].speed()); // DA: updated to the new method
+			vehicleList[i].moveCar(vehicleList[i].speed(0)); // DA: updated to the new method
 		}
 		else if(vehicleList[i].getX() >= checkPointList[1] && vehicleList[i].getX() <= checkPointList[2]) {
-			vehicleList[i].moveCar(vehicleList[i].speed()); // DA: updated to the new method
+			vehicleList[i].moveCar(vehicleList[i].speed(1)); // DA: updated to the new method
 		}
 		else if(vehicleList[i].getX() >= checkPointList[2] && vehicleList[i].getX() <= checkPointList[3]) {
-			vehicleList[i].moveCar(vehicleList[i].speed()); // DA: updated to the new method
+			vehicleList[i].moveCar(vehicleList[i].speed(2)); // DA: updated to the new method
 		}
 		else if(vehicleList[i].getX() >= checkPointList[3] && vehicleList[i].getX() <= trackSize) {
-			vehicleList[i].moveCar(vehicleList[i].speed()); // DA: updated to the new method
+			vehicleList[i].moveCar(vehicleList[i].speed(3)); // DA: updated to the new method
 		}
 		else {
-			vehicleList[i].moveCar(vehicleList[i].speed()); // DA: updated to the new method
+			vehicleList[i].moveCar(vehicleList[i].speed(4)); // DA: updated to the new method
 		}
     if(vehicleList[i].getX() >= trackSize-carSize) {
      vehicleList[i].setLocation(0, vehicleList[i].getY());
@@ -200,11 +204,10 @@ public class RGTrack extends JPanel{
    * @param color line color.
    */
   public void drawCheckpiont(Graphics g, int x, int startAtY, int gap, Color color){
+      g.setColor(color);
       for(int y=startAtY; y<500; y+=100){
-    	g.setColor(color);
         g.drawLine(x,y,x,y+gap);  
     }
-      g.setColor(Color.BLACK);
   }
   
   /**
