@@ -2,9 +2,9 @@
  * Creates a track
  * this track will create a car and give the car a random starting position
  * then add it to an array
- * 
+ *
  * track will also loop through the cars and move them up
- * if one of the cars reaches it's starting point it will be returned 
+ * if one of the cars reaches it's starting point it will be returned
  * so that it can be displayed as the winning car
  */
 import java.awt.*;
@@ -31,9 +31,9 @@ public class RGTrack extends JPanel{
     for(int x = 0; x < vehicleList.length; x++){
       setUpCars(x);
     }
-    
+
   }
-  
+
   // Written by Vrej.
   public void setUpCars(int index){
     int tires;
@@ -44,6 +44,7 @@ public class RGTrack extends JPanel{
       case 1: tires = 1;
       break;
       case 2: tires =2; //DA
+      break;
       default: tires = 0;
       break;
     }
@@ -77,14 +78,14 @@ public class RGTrack extends JPanel{
       break;
     }
     /*
-     * sets it to an x and y position 
-     * 
+     * sets it to an x and y position
+     *
      */
     vehicleList[index] = new RGCar(checkPointList[(((int)(Math.random()*10))%4)],((index+1)*130)-(30*index),
-      tires,cyl,engtype,drivetype, Integer.toString(index)); //The cars files must be named 0-4 
+      tires,cyl,engtype,drivetype, Integer.toString(index)); //The cars files must be named 0-4
   }
   /*
-   * iterates through the checkPointsList 
+   * iterates through the checkPointsList
    * giving checkPoints to each item
    */
   private void setPoints() {
@@ -96,7 +97,7 @@ public class RGTrack extends JPanel{
       //System.out.println(checkPointList[i]);
     }
   }
-    
+
   /*
    * creates rectangles to simulate the track
    * creates cars within these rectangles
@@ -106,17 +107,17 @@ public class RGTrack extends JPanel{
 
     //DA:track's outside lines: 0,100-600,100 and 0,500-600,500.
     g.setColor(Color.DARK_GRAY); // DA track color
-    g.fillRect(0, 100, 600, 400); 
-    drawLane(g, 0, 200, 15, Color.YELLOW); //DA: broken (dashed) yellow line. 
-    drawLane(g, 0, 300, 15,Color.YELLOW); 
-    drawLane(g, 0, 400, 15,Color.YELLOW); 
+    g.fillRect(0, 100, 600, 400);
+    drawLane(g, 0, 200, 15, Color.YELLOW); //DA: broken (dashed) yellow line.
+    drawLane(g, 0, 300, 15,Color.YELLOW);
+    drawLane(g, 0, 400, 15,Color.YELLOW);
     g.setColor(Color.red);
     g.drawString("Asphalt", 0, 520);
     g.drawString("Ice", 160, 520);
     g.drawString("Snow", 260, 520);
     g.drawString("Rain", 360, 520);
     g.drawString("Gravel", 460, 520);
-    
+
 	Color[] colors = { Color.LIGHT_GRAY, Color.gray, Color.blue, Color.black };
     for(int i = 0; i < vehicleList.length; i++) {
     	/*
@@ -134,7 +135,7 @@ public class RGTrack extends JPanel{
   /*
    * moves the cars in forwards
    * if a car reaches the end of the screen it's x will become zero
-   * if the car's distance reaches the the lenght of the screen then the 
+   * if the car's distance reaches the the lenght of the screen then the
    *  car will have gone a full distance and will have won
    */
   public boolean move() {
@@ -162,27 +163,27 @@ public class RGTrack extends JPanel{
      vehicleList[i].setLocation(0, vehicleList[i].getY());
     }
     //System.out.println(vehicleList[i].getDistanceTraveled());
-    if(vehicleList[i].getDistanceTraveled() >= trackSize-carSize) { //DA: once a car distance = track lenght, that car is the winner. 
+    if(vehicleList[i].getDistanceTraveled() >= trackSize-carSize) { //DA: once a car distance = track lenght, that car is the winner.
      return true;
     }
    }
    return false;
   }
-  
+
   public int[] getPoint() {
     return checkPointList;
   }
-  
+
   public RGCar[] getVehicleList() {
     return vehicleList;
   }
-  
+
   /**
    * Written by DA.
    * Draws a broken (dashed) line which represent a broken yellow line between
    * two lanes.
-   * 
-   * @param g 
+   *
+   * @param g
    * @param startAtX
    * @param y
    * @param gap the empty gap length.
@@ -191,7 +192,7 @@ public class RGTrack extends JPanel{
   public void drawLane(Graphics g, int startAtX, int y, int gap, Color color){
       g.setColor(color);
       for(int x=startAtX+5; x<600; x+=25){
-        g.drawLine(x,y,x+gap,y);   
+        g.drawLine(x,y,x+gap,y);
     }
   }
   /**
@@ -206,15 +207,15 @@ public class RGTrack extends JPanel{
   public void drawCheckpiont(Graphics g, int x, int startAtY, int gap, Color color){
       g.setColor(color);
       for(int y=startAtY; y<500; y+=100){
-        g.drawLine(x,y,x,y+gap);  
+        g.drawLine(x,y,x,y+gap);
     }
   }
-  
+
   /**
    * Written by DA
    * Returns the winner, or the car with more distance.
-   * Note: it will return the object index + 1. 
-   * @return who's the winner. 
+   * Note: it will return the object index + 1.
+   * @return who's the winner.
    */
   public int getWinner(){
       for(int index = 0; index< vehicleList.length; index++){
@@ -224,18 +225,18 @@ public class RGTrack extends JPanel{
       }
       return-1;
   }
-  
+
   /**
    * Written by DA
-   * Returns who came in the second place. 
-   * Note: it will return the object index + 1. 
-   * @return who came in the 2nd place. 
+   * Returns who came in the second place.
+   * Note: it will return the object index + 1.
+   * @return who came in the 2nd place.
    */
   public int get2ndWinner(){
       int temp;
       int second=0;
       for(int index = 0; index< vehicleList.length; index++){
-          
+
           if(vehicleList[index].getDistanceTraveled() < trackSize-carSize ){
               temp = index;
               for(int index2 = index+1; index2<vehicleList.length; index2++){
@@ -245,15 +246,15 @@ public class RGTrack extends JPanel{
                       temp = index2;
                       second=temp;
                   }
-                  
+
               }
               return second+1;
           }
-          
+
       }
       return -1;
   }
-  
+
   /**
    * Written by DA
    * used to reset all cars locations.
@@ -263,5 +264,5 @@ public class RGTrack extends JPanel{
           setUpCars(x);
           }
       }
-  
+
 }
