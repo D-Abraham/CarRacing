@@ -1,4 +1,4 @@
-// Vrej | March 14, 2018 | RGPanel class, this class extends JPanel and implements ActionListener. It's a very essential class, it create most of the GUI and makes the RGTrack, this is then used to start running the game itself.
+// Vrej | March 16, 2018 | RGPanel class, this class extends JPanel and implements ActionListener. It's a very essential class, it create most of the GUI and makes the RGTrack, this is then used to start running the game itself.
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
@@ -14,8 +14,8 @@ public class RGPanel extends JPanel implements ActionListener{
   private long timerCurrent = 0; // Initialize the timerCurrent variable which holds the current number of seconds the game has been running.
   private long timerPrevious = 0; // Initialize the timerPrevious variable which holds the total number of seconds the game has been running after the stop button has been pressed.
   private RGTrack track = new RGTrack(); // Initialize the track variable which holds the essential object that creates the track and all the cars.
-  JTextField winningCar = new JTextField("");
-  JTextField secondWinner = new JTextField("");
+  JTextField firstWinner = new JTextField(""); // Initialize the firstWinner variable, which is a JTextField used to display the first winner.
+  JTextField secondWinner = new JTextField(""); // Initialize the secondWinner variable, which is a JTextField used to display the second winner.
   
   public RGPanel(){
     setPreferredSize(new Dimension(565,601)); // Set the size of the panel.
@@ -33,14 +33,17 @@ public class RGPanel extends JPanel implements ActionListener{
     stopb.setBounds(290,0,80,60); // Set the location and size of the stop button.
     this.add(stopb); // Add the stop button to the panel.
     stopb.addActionListener(this); // Make this class capture all the events of the stop button.
-    
-    winningCar.setBounds(400,30,140,30);
-    this.add(winningCar);
-    secondWinner.setBounds(400,60,140,30);
-    this.add(secondWinner);
+    firstWinner.setBounds(380,30,160,30); // Set the location and size of the firstWinner text.
+    firstWinner.setBorder(javax.swing.BorderFactory.createEmptyBorder()); // Make the text field not to have any borders.
+    firstWinner.setEditable(false); // Make the text field not be editable.
+    this.add(firstWinner); // Add the firstWinner text to the panel.
+    secondWinner.setBounds(380,60,160,30); // Set the location and size of the secondWinner text.
+    secondWinner.setBorder(javax.swing.BorderFactory.createEmptyBorder()); // Make the text field not to have any borders.
+    secondWinner.setEditable(false); // Make the text field not be editable.
+    this.add(secondWinner); // Add the secondWinner text to the panel.
   }
   
-// A simple method that can draw things using an Graphics object and displays them to the window. Doesn't return anything and is called internally.
+  // A simple method that can draw things using an Graphics object and displays them to the window. Doesn't return anything and is called internally.
   public void paintComponent(Graphics g){
     super.paintComponent(g); // Call the parent object to draw any graphics that are entered below.
     g.drawString("Total Running Time: " + timerCurrent + " Seconds",380,20); // Draw the text that displays how many seconds the game has been running.
@@ -69,14 +72,14 @@ public class RGPanel extends JPanel implements ActionListener{
       timerStart = 0; // Set the timerStart back to default, which is zero.
       timerCurrent = 0; // Set the timerCurrent back to default, which is zero.
       timerPrevious = 0; // Set the timerPrevious back to default, which is zero.
-      winningCar.setText("");
+      firstWinner.setText("");
       secondWinner.setText("");
       repaint(); // Run the repaint() method which redraws all the graphics in the panel, which also calls the method, paintComponent().
     }
     if(e.getSource() == timer){ // If the source is the timer than continue.
       if(track.move()){ // If a car has reached its last location, than end the game.
         timer.stop(); // Stop the timer.
-        winningCar.setText("1st place: Car " + track.getWinner());
+        firstWinner.setText("1st place: Car " + track.getWinner());
         secondWinner.setText("2nd place: Car " + track.get2ndWinner());
       }
       timerCurrent = timerPrevious + TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - timerStart); // Calculate and set the number to the variable that holds the number of seconds that game has been running.
