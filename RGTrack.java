@@ -9,7 +9,6 @@
  */
 import java.awt.*;
 import javax.swing.*;
-import java.awt.geom.*;
 
 public class RGTrack extends JPanel{
   private int[] checkPointList;
@@ -35,46 +34,46 @@ public class RGTrack extends JPanel{
   }
 
   // Written by Vrej.
+  // Sets up the cars by randomizing their features and then creates the all cars.
   public void setUpCars(int index){
-    int tires;
-    int test = (int)(Math.random()*3);
-    switch(test){
+    int tires; // Initialize the variable used for the tires feature.
+    switch((int)(Math.random()*3)){ // Run a switch statement to determine the type of tire to use and then assign to the tires variable.
       case 0: tires = 0;
       break;
       case 1: tires = 1;
       break;
-      case 2: tires =2; //DA
+      case 2: tires = 2; //DA
       break;
-      default: tires = 0;
+      default: tires = 0; // Set the default value as 0.
       break;
     }
-    int cyl;
-    switch((int)(Math.random()*3)){
+    int cyl; // Initialize the variable used for the number of cylinders feature.
+    switch((int)(Math.random()*3)){ // Run a switch statement to determine the number of cylinder to use and then assign to the tires variable.
       case 0: cyl = 4;
       break;
       case 1: cyl = 6;
       break;
       case 2: cyl = 8;
       break;
-      default: cyl = 4;
+      default: cyl = 4; // Set the default value as 4.
       break;
     }
-    int engtype;
-    switch((int)(Math.random()*2)){
+    int engtype; // Initialize the variable used for the engine type feature.
+    switch((int)(Math.random()*2)){ // Run a switch statement to determine the engine type to use and then assign to the tires variable.
       case 0: engtype = 0;
       break;
       case 1: engtype = 1;
       break;
-      default: engtype = 0;
+      default: engtype = 0; // Set the default value as 0.
       break;
     }
-    int drivetype;
-    switch((int)(Math.random()*2)){
+    int drivetype; // Initialize the variable used for the drive type feature.
+    switch((int)(Math.random()*2)){ // Run a switch statement to determine the drive tyoe to use and then assign to the tires variable.
       case 0: drivetype = 0;
       break;
       case 1: drivetype = 1;
       break;
-      default: drivetype = 0;
+      default: drivetype = 0; // Set the default value as 0.
       break;
     }
     /*
@@ -118,12 +117,12 @@ public class RGTrack extends JPanel{
     g.drawString("Rain", 360, 520);
     g.drawString("Gravel", 460, 520);
 
-	Color[] colors = { Color.LIGHT_GRAY, Color.gray, Color.blue, Color.black };
+ Color[] colors = { Color.LIGHT_GRAY, Color.gray, Color.blue, Color.black };
     for(int i = 0; i < vehicleList.length; i++) {
-    	/*
-    	 * each item in the loop will be given a color based on it's terrain type
-    	 * *note for some reason brown wasn't an option so i used ice and changed it to gray
-    	 */
+     /*
+      * each item in the loop will be given a color based on it's terrain type
+      * *note for some reason brown wasn't an option so i used ice and changed it to gray
+      */
       drawCheckpiont(g,checkPointList[i]+70, 110, 80, colors[i]);
       g.setColor(Color.red);
       g.drawString("Car " + Integer.toString(i+1),vehicleList[i].getStartAtX()+20 , ((i+1)*130)-(30*i)); // This is for Nic :) <DA>
@@ -139,26 +138,26 @@ public class RGTrack extends JPanel{
    *  car will have gone a full distance and will have won
    */
   public boolean move() {
-	  /*
-	   * NB update the moveCar method
-	   * in car class (takes an int for terrain)
-	   */
-	   for(int i = 0; i < 4; i++) {
-		if(vehicleList[i].getX() >= checkPointList[0] && vehicleList[i].getX() <= checkPointList[1]) {
-			vehicleList[i].moveCar(vehicleList[i].speed(0)); // DA: updated to the new method
-		}
-		else if(vehicleList[i].getX() >= checkPointList[1] && vehicleList[i].getX() <= checkPointList[2]) {
-			vehicleList[i].moveCar(vehicleList[i].speed(1)); // DA: updated to the new method
-		}
-		else if(vehicleList[i].getX() >= checkPointList[2] && vehicleList[i].getX() <= checkPointList[3]) {
-			vehicleList[i].moveCar(vehicleList[i].speed(2)); // DA: updated to the new method
-		}
-		else if(vehicleList[i].getX() >= checkPointList[3] && vehicleList[i].getX() <= trackSize) {
-			vehicleList[i].moveCar(vehicleList[i].speed(3)); // DA: updated to the new method
-		}
-		else {
-			vehicleList[i].moveCar(vehicleList[i].speed(4)); // DA: updated to the new method
-		}
+   /*
+    * NB update the moveCar method
+    * in car class (takes an int for terrain)
+    */
+    for(int i = 0; i < 4; i++) {
+  if(vehicleList[i].getX() >= checkPointList[0] && vehicleList[i].getX() <= checkPointList[1]) {
+   vehicleList[i].moveCar(vehicleList[i].speed(0)); // DA: updated to the new method
+  }
+  else if(vehicleList[i].getX() >= checkPointList[1] && vehicleList[i].getX() <= checkPointList[2]) {
+   vehicleList[i].moveCar(vehicleList[i].speed(1)); // DA: updated to the new method
+  }
+  else if(vehicleList[i].getX() >= checkPointList[2] && vehicleList[i].getX() <= checkPointList[3]) {
+   vehicleList[i].moveCar(vehicleList[i].speed(2)); // DA: updated to the new method
+  }
+  else if(vehicleList[i].getX() >= checkPointList[3] && vehicleList[i].getX() <= trackSize) {
+   vehicleList[i].moveCar(vehicleList[i].speed(3)); // DA: updated to the new method
+  }
+  else {
+   vehicleList[i].moveCar(vehicleList[i].speed(4)); // DA: updated to the new method
+  }
     if(vehicleList[i].getX() >= trackSize-carSize) {
      vehicleList[i].setLocation(0, vehicleList[i].getY());
     }
@@ -265,4 +264,27 @@ public class RGTrack extends JPanel{
           }
       }
 
+  // Written by Vrej.
+  // Simply returns the value of the track size.
+  public int getTrackSize(){
+    return trackSize;
+  }
+  
+  // Written by Vrej.
+  // Simply returns the value of the car size.
+  public int getCarSize(){
+    return carSize;
+  }
+  
+  // Written by Vrej.
+  // Returns true if the both of the objects are a RGTrack object with the same values.
+  public boolean equals(Object obj){
+    if(obj == this) return true; // Make sure it's not this object.
+    if(obj == null) return false; // Make sure the given object isn't null.
+    if(obj.getClass() == this.getClass()){ // If both are the same class.
+      RGTrack other = (RGTrack) obj; // Cast the given object to the same class.
+      return(other.getTrackSize() == this.getTrackSize() && other.getCarSize() == this.getCarSize()); // Return true if all these statments are correct.
+    }
+    return false; // Return false if the previous statements didn't work.
+  }
 }

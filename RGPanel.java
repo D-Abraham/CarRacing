@@ -1,4 +1,4 @@
-// Vrej | March 16, 2018 | RGPanel class, this class extends JPanel and implements ActionListener. It's a very essential class, it create most of the GUI and makes the RGTrack, this is then used to start running the game itself.
+// Vrej | March 18, 2018 | RGPanel class, this class extends JPanel and implements ActionListener. It's a very essential class, it create most of the GUI and makes the RGTrack, this is then used to start running the game itself.
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
@@ -72,15 +72,15 @@ public class RGPanel extends JPanel implements ActionListener{
       timerStart = 0; // Set the timerStart back to default, which is zero.
       timerCurrent = 0; // Set the timerCurrent back to default, which is zero.
       timerPrevious = 0; // Set the timerPrevious back to default, which is zero.
-      firstWinner.setText("");
-      secondWinner.setText("");
+      firstWinner.setText(""); // Set the text for the firstWinner to an empty String.
+      secondWinner.setText(""); // Set the text for the secondWinner to an empty String.
       repaint(); // Run the repaint() method which redraws all the graphics in the panel, which also calls the method, paintComponent().
     }
     if(e.getSource() == timer){ // If the source is the timer than continue.
       if(track.move()){ // If a car has reached its last location, than end the game.
         timer.stop(); // Stop the timer.
-        firstWinner.setText("1st place: Car " + track.getWinner());
-        secondWinner.setText("2nd place: Car " + track.get2ndWinner());
+        firstWinner.setText("1st place: Car " + track.getWinner()); // Set the winning text for the firstWinner.
+        secondWinner.setText("2nd place: Car " + track.get2ndWinner()); // Set the winning text for the secondWinner.
       }
       timerCurrent = timerPrevious + TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - timerStart); // Calculate and set the number to the variable that holds the number of seconds that game has been running.
       repaint(); // Run the repaint() method which redraws all the graphics in the panel, which also calls the method, paintComponent().
