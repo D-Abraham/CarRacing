@@ -1,4 +1,4 @@
-// Vrej | March 18, 2018 | RGDriver class, this class just simply creates a JFrame and runs the game by creating a RGPanel.
+// Written by Vrej | March 21, 2018 | RGDriver class, this class just simply creates a JFrame and runs the game by creating a RGPanel.
 import java.awt.*;
 import javax.swing.*;
 
