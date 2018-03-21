@@ -1,29 +1,27 @@
-
 /* Created by Nikolas Brisbois
  * Creates a track
  * this track will create a car and give the car a random starting position
- * then add it to an array
+ * then add it to an ArrayList
  *
- * track will also loop through the cars and move them up
+ * track will also iterate through the cars and move them up
  * if one of the cars reaches it's starting point it will be returned
  * so that it can be displayed as the winning car
  */
 import java.awt.*;
 import java.util.ArrayList;
-
 import javax.swing.*;
 
 public class RGTrack extends JPanel {
- private int[] checkPointList;
- private ArrayList<RGCar> vehicleList;
+ private int[] checkPointList; //Holds the check points for each terrain 
+ private ArrayList<RGCar> vehicleList; //Holds the cars
  private int trackSize; // DA
  private int carSize; // DA
  /*
-  * constructor initialize the checkPointList and vehicleList arrays
+  * constructor initialize the checkPointList and vehicleList ArrayList
   */
 
  public RGTrack() {
-  checkPointList = new int[4];
+  checkPointList = new int[4]; //Four terrains that are not asphalt 
   /*
    * ArrayList to avoiding looping within the class
    */
@@ -38,20 +36,19 @@ public class RGTrack extends JPanel {
  }
 
  /*
-  * iterates through the checkPointsList giving checkPoints to each item
+  * iterates through the checkPointsList  placing their x positions on the track
   */
  private void setPoints() {
   for (int i = 0; i < 4; i++) {
    /*
-    * the points should be 2/6, 3/6, 4/6, and 5/6 on the track
+    * the points should be evenly placed on the track (the asphalt will be larger)
     */
    checkPointList[i] = 100 * (i + 1);
-   // System.out.println(checkPointList[i]);
   }
  }
 
  /*
-  * creates rectangles to simulate the track creates cars within these rectangles
+  * creates the visual track
   */
  public void paintComponent(Graphics g) {
   Graphics2D g2 = (Graphics2D) g;
@@ -63,23 +60,29 @@ public class RGTrack extends JPanel {
   drawLane(g, 0, 300, 15, Color.YELLOW);
   drawLane(g, 0, 400, 15, Color.YELLOW);
   g.setColor(Color.red);
+  //shows which track the car the user creates is on
   g.drawString("Your car", 0, 110);
+  //displays the terrain underneath each check point
   g.drawString("Asphalt", 0, 520);
   g.drawString("Ice", 160, 520);
   g.drawString("Snow", 260, 520);
   g.drawString("Rain", 360, 520);
   g.drawString("Gravel", 460, 520);
-
+  
+  //creates an array of colors to separate the terrains
   Color[] colors = { Color.LIGHT_GRAY, Color.gray, Color.blue, Color.black };
   for (int i = 0; i < vehicleList.size(); i++) {
    /*
-    * each item in the loop will be given a color based on it's terrain type *note
-    * for some reason brown wasn't an option so i used ice and changed it to gray
+    * each item in the loop will be given a color based on it's terrain type
     */
    drawCheckpiont(g, checkPointList[i] + 70, 110, 80, colors[i]);
    g.setColor(Color.red);
+   /*
+    * displays the number of the car in the position of where it starts so that the user 
+    * will be able to know where the car will stop to win the race
+    */
    g.drawString("Car " + Integer.toString(i + 1), vehicleList.get(i).getStartAtX() + 20,
-     ((i + 1) * 130) - (30 * i)); // This is for Nic :) <DA>
+     ((i + 1) * 130) - (30 * i)); // This is for Nik :) <DA>
    g.setColor(Color.BLACK);
    g.drawString("Car " + (i + 1) + " " + vehicleList.get(i).toString(), 5, 550 + (i * 13));// DA: Car features
    vehicleList.get(i).paintComponent(g2);
@@ -108,12 +111,16 @@ public class RGTrack extends JPanel {
 
  /*
   * moves the cars in forwards if a car reaches the end of the screen it's x will
-  * become zero if the car's distance reaches the the lenght of the screen then
-  * the car will have gone a full distance and will have won
+  * become zero if the car's distance reaches the the length of the screen 
+  * 
+  * when the car reaches it's starting point, it will be considered a winner
   */
  public boolean move() {
   /*
-   * NB update the moveCar method in car class (takes an int for terrain)
+   * iterate through each car and finds which check point it is in
+   * 
+   * then call the car's speed and hands it an int that will modify the
+   * speed the car will be on that terrain
    */
   for (int i = 0; i < 4; i++) {
    if (vehicleList.get(i).getX() >= checkPointList[0] && vehicleList.get(i).getX() <= checkPointList[1]) {
@@ -132,9 +139,8 @@ public class RGTrack extends JPanel {
    if (vehicleList.get(i).getX() >= trackSize - carSize) {
     vehicleList.get(i).setLocation(0, vehicleList.get(i).getY());
    }
-   // System.out.println(vehicleList[i].getDistanceTraveled());
    if (vehicleList.get(i).getDistanceTraveled() >= trackSize - carSize) { // DA: once a car distance = track
-                     // lenght, that car is the winner.
+                     // Length, that car is the winner.
     return true;
    }
   }
@@ -175,7 +181,7 @@ public class RGTrack extends JPanel {
   * @param x
   * @param startAtY
   * @param gap empty gap length.
-  * @param color line color.
+  * @param color line color. 
   */
     public void drawCheckpiont(Graphics g, int x, int startAtY, int gap, Color color) {
         g.setColor(color);
@@ -253,5 +259,15 @@ public class RGTrack extends JPanel {
      return(other.getTrackSize() == this.getTrackSize() && other.getCarSize() == this.getCarSize()); // Return true if all these statments are correct.
    }
    return false; // Return false if the previous statements didn't work.
+ }
+ 
+ public String toString() {
+	 String input = "";
+	 input += "There are " + vehicleList.size() + " cars on the track\n"
+	 		+ "These cars are:\n";
+	 for(int i = 0; i < vehicleList.size(); i++) {
+		 input += vehicleList.get(i).toString() + "\n";
+	 }
+	 return input;
  }
 }
