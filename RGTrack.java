@@ -150,84 +150,86 @@ public class RGTrack extends JPanel {
   }
 
  /**
-  * Written by DA. Draws a broken (dashed) line which represent a broken yellow
+  * Written by DA.
+  * Draws a broken (dashed) line which represent a broken yellow
   * line between two lanes.
   *
   * @param g
   * @param startAtX
   * @param y
-  * @param gap
-  *            the empty gap length.
-  * @param color
-  *            line color.
+  * @param gap empty gap length.
+  * @param color line color.
   */
- public void drawLane(Graphics g, int startAtX, int y, int gap, Color color) {
-  g.setColor(color);
-  for (int x = startAtX + 5; x < 600; x += 25) {
-   g.drawLine(x, y, x + gap, y);
-  }
- }
+    public void drawLane(Graphics g, int startAtX, int y, int gap, Color color) {
+        g.setColor(color);
+        for (int x = startAtX + 5; x < 600; x += 25) {
+            g.drawLine(x, y, x + gap, y);
+        }
+    }
 
  /**
-  * Written by DA. Draws checkpoint (vertical line).
+  * Written by DA.
+  * Draws checkpoint (vertical line).
   * 
   * @param g
   * @param x
   * @param startAtY
-  * @param gap
-  *            the empty gap length.
-  * @param color
-  *            line color.
+  * @param gap empty gap length.
+  * @param color line color.
   */
- public void drawCheckpiont(Graphics g, int x, int startAtY, int gap, Color color) {
-  g.setColor(color);
-  for (int y = startAtY; y < 500; y += 100) {
-   g.drawLine(x, y, x, y + gap);
-  }
- }
+    public void drawCheckpiont(Graphics g, int x, int startAtY, int gap, Color color) {
+        g.setColor(color);
+        for (int y = startAtY; y < 500; y += 100) {
+            g.drawLine(x, y, x, y + gap);
+        }
+    }
 
  /**
-  * Written by DA Returns the winner, or the car with more distance. Note: it
-  * will return the object index + 1.
+  * Written by DA.
+  * Returns the winner, or the car with more distance.
+  * Note: it will return the object index + 1.
   * 
   * @return who's the winner.
   */
- public int getWinner() {
-  for (int index = 0; index < vehicleList.size(); index++) {
-   if (vehicleList.get(index).getDistanceTraveled() >= trackSize - carSize) {
-    return index + 1;
-   }
-  }
-  return -1;
- }
+    public int getWinner() {
+        for (int index = 0; index < vehicleList.size(); index++) {
+            if (vehicleList.get(index).getDistanceTraveled() >= trackSize - carSize) {
+                return index + 1;
+            }
+        }
+        return -1;
+    }
+    
 
  /**
-  * Written by DA Returns who came in the second place. Note: it will return the
-  * object index + 1.
   * 
+  * Written by DA. Returns who came in the second place. Note: it will return
+  * the object index + 1.
+  *
   * @return who came in the 2nd place.
   */
- public int get2ndWinner() {
-  int temp;
-  int second = 0;
-  for (int index = 0; index < vehicleList.size(); index++) {
+    public int get2ndWinner() {
+        int temp;
+        int second = 0;
+        for (int index = 0; index < vehicleList.size(); index++) {
 
-   if (vehicleList.get(index).getDistanceTraveled() < trackSize - carSize) {
-    temp = index;
-    for (int index2 = index + 1; index2 < vehicleList.size(); index2++) {
-     if (vehicleList.get(index2).getDistanceTraveled() < trackSize - carSize && vehicleList.get(index2)
-       .getDistanceTraveled() >= vehicleList.get(temp).getDistanceTraveled()) {
-      temp = index2;
-      second = temp;
-     }
+            if (vehicleList.get(index).getDistanceTraveled() < trackSize - carSize) {
+                temp = index;
+                for (int index2 = index + 1; index2 < vehicleList.size(); index2++) {
+                    if (vehicleList.get(index2).getDistanceTraveled() < trackSize - carSize
+                            && vehicleList.get(index2).getDistanceTraveled() >= 
+                            vehicleList.get(temp).getDistanceTraveled()) {
+                        temp = index2;
+                        second = temp;
+                    }
 
+                }
+                return second + 1;
+            }
+
+        }
+        return -1;
     }
-    return second + 1;
-   }
-   
-  }
-  return -1;
- }
  
  // Written by Vrej.
  // Simply returns the value of the track size.

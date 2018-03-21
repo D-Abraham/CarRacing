@@ -8,7 +8,10 @@ import javax.swing.JPanel;
 
 
 /**
-   * A car image that can be positioned anywhere on the screen.
+   * A car object with car image that can be positioned anywhere on the screen.
+   * Each car object has some features like tires, engine cylinders, turbo or not
+   * and AWD or FD. The car setup will effect it's performance on the different 
+   * terrains.
    * @author DA
    * @since 3/5/2018
 */
@@ -23,7 +26,8 @@ public class RGCar extends JPanel
     private int driveType;  // 0 = FWD & 1 = AWD
    
     /**
-      * Constructs a car at the default location (0,0).
+      * Constructs a car at the default location (0,0). All car features will
+      * set to the default sitting.
    */
    public RGCar()
    {
@@ -45,13 +49,13 @@ public class RGCar extends JPanel
    
     
     /**
-     * Constructs a car. 
+     * Construct car with specified x,y coordinate and features.
      * @param x the x coordinate.
      * @param y the y coordinate.
      * @param  tires tires type.
      * @param engineCylinder number of cylinder.
-     * @param engineType non-turbo or turbo.
-     * @param driveType AWD or FD.
+     * @param engineType 0 for non-turbo or 1 for turbo.
+     * @param driveType 1 for AWD or o for FD.
      * @param pic to be used as a picture for the object.
    */
    public RGCar(int x, int y, int tires, int engineCylinder, int engineType,
@@ -84,35 +88,37 @@ public class RGCar extends JPanel
    }
    
    /**
-     * @return the x
+     * @return x coordinate.
      */
     public int getX() {
         return x;
     }
 
     /**
-     * @return the y
+     * @return y coordinate.
      */
     public int getY() {
         return y;
     }
     
     /**
-     * @return the startAtX
+     * returns the start line for the car.
+     * @return startAtX
      */
     public int getStartAtX() {
         return startAtX;
     }
     
     /**
-     * @return the distanceTraveled
+     * returns the distance traveled by the car.  
+     * @return distancTearveled
      */
     public int getDistanceTraveled() {
         return distanceTraveled;
     }
     
     /**
-     * 
+     * Moves the car with specified velocity, and add to the traveled distance. 
      * @param velX 
      */
     public void moveCar(int velX) {
@@ -133,7 +139,7 @@ public class RGCar extends JPanel
    }
    
    /**
-    * calculates and returns a random number (used as speed) according to car features.
+    * calculates and returns a random number (speed or velocity) according to car features.
     * @param terrain 
     * @return random number according to car features and terrain.
     */

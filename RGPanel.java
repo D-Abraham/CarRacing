@@ -55,7 +55,7 @@ public class RGPanel extends JPanel implements ActionListener {
     // Written by NB:
     track.addCar(tiresMenu.getSelectedIndex(), (cylinderMenu.getSelectedIndex() * 2) + 4, engineMenu.getSelectedIndex(), driveMenu.getSelectedIndex());
     for (int i = 0; i < 3; i++) {
-      track.addCar((((int) (Math.random() * 10)) % 2), (((int)(Math.random() * 10) % 3) * 2) + 4, (((int) (Math.random() * 10)) % 2), (((int) (Math.random() * 10)) % 2));
+      track.addCar((((int) (Math.random() * 10)) % 3), (((int)(Math.random() * 10) % 3) * 2) + 4, (((int) (Math.random() * 10)) % 2), (((int) (Math.random() * 10)) % 2));
     }
   }
   
