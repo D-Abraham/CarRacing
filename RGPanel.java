@@ -9,7 +9,7 @@ public class RGPanel extends JPanel implements ActionListener {
   JButton restartb = new JButton("Restart"); // Initialize the restartb variable which holds a JButton that resets and restarts the game when pressed.
   JButton startb = new JButton("Start"); // Initialize the startb variable holds a JButton that starts/continues the timer and the cars.
   JButton stopb = new JButton("Stop"); // Initialize the stopb variable which holds a JButton that stops the game, it will pause the timer and the cars.
-  Timer timer = new Timer(100, this); // Initialize the timer that's used to determine how long the game took to finish, it runs every 100 miliseconds.
+  Timer timer = new Timer(100, this); // Initialize the timer that's used to determine how long the game took to finish, it runs every 100 milliseconds.
   private long timerStart = 0; // Initialize the timerStart variable which holds the initial time that the game began running, it's used to calculate the total number of seconds the game took to finish.
   private long timerCurrent = 0; // Initialize the timerCurrent variable which holds the current number of seconds the game has been running.
   private long timerPrevious = 0; // Initialize the timerPrevious variable which holds the total number of seconds the game has been running after the stop button has been pressed.
@@ -20,7 +20,7 @@ public class RGPanel extends JPanel implements ActionListener {
   private String[] tires = { "Tire: All-Season", "Tire: High performance", "Tire: Snow Tires" }; // Initialize the array that holds the tire types.
   private String[] cylinder = { "Engine Cylinder: 4", "Engine Cylinder: 6", "Engine Cylinder: 8" }; // Initialize the array that holds the cylinder types.
   private String[] engType = { "Engine Type: Non-turbo", "Engine Type: Turbo" }; // Initialize the array that holds the engine types.
-  private String[] driveType = { "Drive Type: Frount wheel drive", "Drive Type: All wheel drive" }; // Initialize the array that holds the drive types.
+  private String[] driveType = { "Drive Type: Front wheel drive", "Drive Type: All wheel drive" }; // Initialize the array that holds the drive types.
   JComboBox<String> tiresMenu = new JComboBox<String>(tires); // Initialize the drop down menu for the tires.
   JComboBox<String> cylinderMenu = new JComboBox<String>(cylinder); // Initialize the drop down menu for the number of cylinders.
   JComboBox<String> engineMenu = new JComboBox<String>(engType); // Initialize the drop down menu for the engine type.
@@ -106,7 +106,7 @@ public class RGPanel extends JPanel implements ActionListener {
       repaint(); // Run the repaint() method which redraws all the graphics in the panel, which also calls the method, paintComponent().
     }
     
-    if (e.getSource() == constructCar){ // If the source is the cosntruct button than continue.
+    if (e.getSource() == constructCar){ // If the source is the construct button than continue.
       createCars(); // Create all of the cars.
       
       // Create the main items and add it the panel:
