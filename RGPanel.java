@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.util.concurrent.TimeUnit;
 
-public class RGPanel extends JPanel implements ActionListener {
+public class RGPanel extends JPanel implements ActionListener{
   JButton quitb = new JButton("Quit"); // Initialize the quitb variable which simply just holds a JButton that quits the game when pressed.
   JButton restartb = new JButton("Restart"); // Initialize the restartb variable which holds a JButton that resets and restarts the game when pressed.
   JButton startb = new JButton("Start"); // Initialize the startb variable holds a JButton that starts/continues the timer and the cars.
@@ -17,17 +17,17 @@ public class RGPanel extends JPanel implements ActionListener {
   JTextField firstWinner = new JTextField(""); // Initialize the firstWinner variable, which is a JTextField used to display the first winner.
   JTextField secondWinner = new JTextField(""); // Initialize the secondWinner variable, which is a JTextField used to display the second winner.
   private JButton constructCar = new JButton("Construct Car"); // Initialize the button that constructs the car when pressed.
-  private String[] tires = { "Tire: All-Season", "Tire: High performance", "Tire: Snow Tires" }; // Initialize the array that holds the tire types.
-  private String[] cylinder = { "Engine Cylinder: 4", "Engine Cylinder: 6", "Engine Cylinder: 8" }; // Initialize the array that holds the cylinder types.
-  private String[] engType = { "Engine Type: Non-turbo", "Engine Type: Turbo" }; // Initialize the array that holds the engine types.
-  private String[] driveType = { "Drive Type: Front wheel drive", "Drive Type: All wheel drive" }; // Initialize the array that holds the drive types.
+  private String[] tires = {"Tire: All-Season", "Tire: High performance", "Tire: Snow Tires"}; // Initialize the array that holds the tire types.
+  private String[] cylinder = {"Engine Cylinder: 4", "Engine Cylinder: 6", "Engine Cylinder: 8"}; // Initialize the array that holds the cylinder types.
+  private String[] engType = {"Engine Type: Non-turbo", "Engine Type: Turbo"}; // Initialize the array that holds the engine types.
+  private String[] driveType = {"Drive Type: Front wheel drive", "Drive Type: All wheel drive"}; // Initialize the array that holds the drive types.
   JComboBox<String> tiresMenu = new JComboBox<String>(tires); // Initialize the drop down menu for the tires.
   JComboBox<String> cylinderMenu = new JComboBox<String>(cylinder); // Initialize the drop down menu for the number of cylinders.
   JComboBox<String> engineMenu = new JComboBox<String>(engType); // Initialize the drop down menu for the engine type.
   JComboBox<String> driveMenu = new JComboBox<String>(driveType); // Initialize the drop down menu for the drive type.
   
   // The main constructor for the class which takes no parameters and initializes very important variables.
-  public RGPanel() {
+  public RGPanel(){
     setPreferredSize(new Dimension(565, 601)); // Set the size of the panel.
     setBackground(Color.white); // Set the background color to white.
     setLayout(null); // Set the layout to null, this will allow the placement of components in any location, rather than grid-like layout.
@@ -60,7 +60,7 @@ public class RGPanel extends JPanel implements ActionListener {
   }
   
   // A simple method that can draw things using an Graphics object and displays them to the window. Doesn't return anything and is called internally.
-  public void paintComponent(Graphics g) {
+  public void paintComponent(Graphics g){
     super.paintComponent(g); // Call the parent object to draw any graphics that are entered below.
     g.drawString("Total Running Time: " + timerCurrent + " Seconds", 380, 20); // Draw the text that displays how many seconds the game has been running.
     Graphics2D g2 = (Graphics2D) g; // Cast the Graphics object as Graphics2D and assign it to the "g2" variable.
@@ -68,7 +68,7 @@ public class RGPanel extends JPanel implements ActionListener {
   }
   
   // The important method that captures all of the events that the buttons call. Has a parameter that holds the ActionEvent object which has all of the information of what was pressed.
-  public void actionPerformed(ActionEvent e) {
+  public void actionPerformed(ActionEvent e){
     if (e.getSource() == quitb) { // If source is the quit button, then continue.
       System.exit(0); // Exit the program.
     }
