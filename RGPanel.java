@@ -55,7 +55,7 @@ public class RGPanel extends JPanel implements ActionListener{
     // Written by NB:
     track.addCar(tiresMenu.getSelectedIndex(), (cylinderMenu.getSelectedIndex() * 2) + 4, engineMenu.getSelectedIndex(), driveMenu.getSelectedIndex());
     for (int i = 0; i < 3; i++) {
-      track.addCar((((int) (Math.random() * 10)) % 3), (((int)(Math.random() * 10) % 3) * 2) + 4, (((int) (Math.random() * 10)) % 2), (((int) (Math.random() * 10)) % 2));
+      track.addCar((((int)(Math.random() * 10)) % 3), (((int)(Math.random() * 10) % 3) * 2) + 4, (((int)(Math.random() * 10)) % 2), (((int)(Math.random() * 10)) % 2));
     }
   }
   
@@ -69,23 +69,23 @@ public class RGPanel extends JPanel implements ActionListener{
   
   // The important method that captures all of the events that the buttons call. Has a parameter that holds the ActionEvent object which has all of the information of what was pressed.
   public void actionPerformed(ActionEvent e){
-    if (e.getSource() == quitb) { // If source is the quit button, then continue.
+    if (e.getSource() == quitb){ // If source is the quit button, then continue.
       System.exit(0); // Exit the program.
     }
     
-    if (e.getSource() == startb) { // If the source is the start button, then continue.
+    if (e.getSource() == startb){ // If the source is the start button, then continue.
       if (!timer.isRunning()) { // If the timer isn't running, then continue.
         timerStart = System.currentTimeMillis(); // Set the timerStart value to the current system time.
         timer.start(); // Start the timer.
       }
     }
     
-    if (e.getSource() == stopb) { // If the source is the stop button, then continue.
+    if (e.getSource() == stopb){ // If the source is the stop button, then continue.
       timerPrevious = timerCurrent; // Set the timerPrevious value to the current number of seconds.
       timer.stop(); // Stop the timer.
     }
     
-    if (e.getSource() == restartb) { // If the source is the restart button, then continue.
+    if (e.getSource() == restartb){ // If the source is the restart button, then continue.
       createCars(); // Recreate all of the cars.
       timer.stop(); // Stop the timer.
       timerStart = 0; // Set the timerStart back to default, which is zero.
@@ -96,7 +96,7 @@ public class RGPanel extends JPanel implements ActionListener{
       repaint(); // Run the repaint() method which redraws all the graphics in the panel, which also calls the method, paintComponent().
     }
     
-    if (e.getSource() == timer) { // If the source is the timer than continue.
+    if (e.getSource() == timer){ // If the source is the timer than continue.
       if (track.move()) { // If a car has reached its last location, than end the game.
         timer.stop(); // Stop the timer.
         firstWinner.setText("1st place: Car " + track.getWinner()); // Set the winning text for the firstWinner.
