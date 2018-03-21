@@ -215,7 +215,7 @@ public class RGTrack extends JPanel {
    if (vehicleList.get(index).getDistanceTraveled() < trackSize - carSize) {
     temp = index;
     for (int index2 = index + 1; index2 < vehicleList.size(); index2++) {
-     if (vehicleList.get(index).getDistanceTraveled() < trackSize - carSize && vehicleList.get(index2)
+     if (vehicleList.get(index2).getDistanceTraveled() < trackSize - carSize && vehicleList.get(index2)
        .getDistanceTraveled() >= vehicleList.get(temp).getDistanceTraveled()) {
       temp = index2;
       second = temp;
